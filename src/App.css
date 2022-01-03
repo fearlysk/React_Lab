@@ -1,0 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+.app__wrapper {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  color: white;
+}
+.app__content {
+  background: url('../src/assets/images/app_background.jpg');
+}

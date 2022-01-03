@@ -1,0 +1,333 @@
+{
+    "users": [
+      {
+        "id": 0,
+        "role": "admin",
+        "firstName": "Sergey",
+        "lastName": "Sergeev",
+        "sex": "Male",
+        "address": "-",
+        "shippingAddress": "-",
+        "paymentCard": "1234 1234 1234 1234",
+        "email": "sergeymail@mail.ru",
+        "password": "sergey",
+        "aboutUser": "Admin"
+      },
+      {
+        "id": 1,
+        "role": "user",
+        "firstName": "Andrey",
+        "lastName": "Andreev",
+        "sex": "Male",
+        "address": "-",
+        "shippingAddress": "-",
+        "paymentCard": "2345 2345 2345 2345",
+        "email": "andreymail@mail.ru",
+        "password": "andrey"
+      },
+      {
+        "id": 2,
+        "role": "user",
+        "firstName": "Petr",
+        "lastName": "Petrov",
+        "sex": "Male",
+        "address": "-",
+        "shippingAddress": "-",
+        "paymentCard": "3456 3456 3456 3456",
+        "email": "petrmail@mail.ru",
+        "password": "petr"
+      },
+      {
+        "id": 3,
+        "role": "user",
+        "firstName": "Ivan",
+        "lastName": "Ivanov",
+        "sex": "Male",
+        "address": "-",
+        "shippingAddress": "-",
+        "paymentCard": "4567 4567 4567 4567",
+        "email": "ivanmail@mail.ru",
+        "password": "ivan",
+        "aboutUser": "Someone"
+      },
+      {
+        "id": 4,
+        "firstName": "Oleg",
+        "lastName": "Olegov",
+        "sex": "Male",
+        "role": "user",
+        "address": "-",
+        "shippingAddress": "-",
+        "paymentCard": "5678 5678 5678 5678",
+        "email": "olegmail@mail.ru",
+        "password": "oleg",
+        "aboutUser": "nothing"
+      },
+      {
+        "id": 5,
+        "firstName": "Bruce",
+        "lastName": "Wayne",
+        "sex": "Male",
+        "role": "user",
+        "address": "-",
+        "shippingAddress": "-",
+        "paymentCard": "5678 5678 5678 5678",
+        "email": "wayneb@gmail.com",
+        "password": "martha",
+        "aboutUser": "i am batman!"
+      },
+      {
+        "firstName": "Ivan",
+        "lastName": "Ivanov",
+        "sex": "Male",
+        "role": "user",
+        "address": "moscow, lenina 90",
+        "shippingAddress": "moscow, lenina 93",
+        "paymentCard": "1234567812345678",
+        "email": "ivanmail@mail.ru",
+        "password": "ivan",
+        "id": 6
+      }
+    ],
+    "products": [
+      {
+        "id": 0,
+        "image": "https://upload.wikimedia.org/wikipedia/ru/9/98/Battlefield_1.jpg",
+        "title": "Battlefield 1",
+        "pc": true,
+        "xbox": true,
+        "playstation": true,
+        "price": 50,
+        "genre": "Shooter",
+        "rating": 3,
+        "quantity": 1,
+        "developer": "DICE",
+        "createdAt": "163",
+        "description": "Battlefield 1 - an action shooter developed by DICE",
+        "updatedAt": "1638452290273"
+      },
+      {
+        "id": 1,
+        "image": "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg",
+        "title": "Grand Theft Auto V",
+        "pc": true,
+        "xbox": true,
+        "playstation": true,
+        "price": 40,
+        "genre": "Action",
+        "rating": 5,
+        "quantity": 1,
+        "developer": "Rockstar Games",
+        "createdAt": "1636",
+        "description": "Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. It is the seventh main entry in the Grand Theft Auto series."
+      },
+      {
+        "id": 2,
+        "image": "https://gamestracker.org/_ld/155/15582.jpg",
+        "title": "Counter-Strike: Global Offensive",
+        "pc": true,
+        "xbox": false,
+        "playstation": false,
+        "price": 10,
+        "genre": "Shooter",
+        "rating": 4,
+        "quantity": 1,
+        "developer": "Valve",
+        "createdAt": "163610",
+        "description": "Counter-Strike: Global Offensive (CS:GO) is a multiplayer first-person shooter developed by Valve and Hidden Path Entertainment. It is the fourth game in the Counter-Strike series."
+      },
+      {
+        "id": 3,
+        "image": "https://upload.wikimedia.org/wikipedia/ru/c/c9/%D0%9B%D0%BE%D0%B3%D0%BE%D1%82%D0%B8%D0%BF_%D0%B8%D0%B3%D1%80%D1%8B_PlayerUnknown%27s_Battlegrounds.jpg",
+        "title": "PLAYERUNKNOWN'S BATTLEGROUNDS",
+        "price": 20,
+        "pc": true,
+        "xbox": true,
+        "playstation": true,
+        "genre": "Action",
+        "rating": 3,
+        "quantity": 1,
+        "developer": "PUBG Corporation",
+        "createdAt": "1",
+        "description": "PlayerUnknown's Battlegrounds (also known as PUBG: Battlegrounds) is an online multiplayer battle royale game developed and published by PUBG Corporation, a subsidiary of Bluehole."
+      },
+      {
+        "image": "https://kritikanstvo.ru/games/m/marvelsspidermanmilesmorales/covers/marvelsspidermanmilesmorales_ps4_569060.jpg",
+        "title": "Marvel's Spider-Man: Miles Morales",
+        "description": "Marvel's Spider-Man: Miles Morales is a 2020 action-adventure game developed by Insomniac Games and published by Sony Interactive Entertainment ",
+        "price": 50,
+        "pc": false,
+        "xbox": false,
+        "playstation": true,
+        "genre": "Action",
+        "rating": 5,
+        "quantity": 1,
+        "developer": "Insomniac Games",
+        "createdAt": "1636279836870",
+        "updatedAt": "1636279836870",
+        "id": 4
+      }
+    ],
+    "orders": [
+      {
+        "id": "R3S2ASBHrq",
+        "userId": 4,
+        "firstName": "Oleg",
+        "lastName": "Olegov",
+        "deliveryaddress": "Minsk, Moskovskaya 17",
+        "deliveryday": "2021-11-30",
+        "phonenumber": "+375(12)9876543",
+        "ordereditems": [
+          {
+            "image": "https://kritikanstvo.ru/games/m/marvelsspidermanmilesmorales/covers/marvelsspidermanmilesmorales_ps4_569060.jpg",
+            "title": "Marvel's Spider-Man: Miles Morales",
+            "description": "Marvel's Spider-Man: Miles Morales is a 2020 action-adventure game developed by Insomniac Games and published by Sony Interactive Entertainment ",
+            "price": 50,
+            "genre": "Action",
+            "rating": 5,
+            "quantity": 3,
+            "developer": "Insomniac Games",
+            "createdAt": "1636279836870",
+            "updatedAt": "1636279836870",
+            "id": 4
+          }
+        ]
+      },
+      {
+        "id": "iKLJXEFY3S",
+        "userId": 0,
+        "firstName": "sergey",
+        "lastName": "sergeev",
+        "deliveryaddress": "vitebsk",
+        "deliveryday": "2021-12-27",
+        "phonenumber": "+375(11)1111111",
+        "ordereditems": [
+          {
+            "id": 0,
+            "image": "https://upload.wikimedia.org/wikipedia/ru/9/98/Battlefield_1.jpg",
+            "title": "Battlefield 1",
+            "price": 50,
+            "genre": "Shooter",
+            "rating": 3,
+            "quantity": 2,
+            "developer": "DICE",
+            "createdAt": "163",
+            "description": "Battlefield 1 - an action shooter developed by DICE",
+            "updatedAt": "1638452290273"
+          },
+          {
+            "id": 1,
+            "image": "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg",
+            "title": "Grand Theft Auto V",
+            "price": 40,
+            "genre": "Action",
+            "rating": 5,
+            "quantity": 2,
+            "developer": "Rockstar Games",
+            "createdAt": "1636",
+            "description": "Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. It is the seventh main entry in the Grand Theft Auto series."
+          }
+        ],
+        "total": 180
+      },
+      {
+        "id": "g0fdQy078e",
+        "userId": 4,
+        "firstName": "oleg",
+        "lastName": "olegov",
+        "deliveryaddress": "a",
+        "deliveryday": "2021-12-27",
+        "phonenumber": "+375(12)3141151",
+        "ordereditems": [
+          {
+            "id": 0,
+            "image": "https://upload.wikimedia.org/wikipedia/ru/9/98/Battlefield_1.jpg",
+            "title": "Battlefield 1",
+            "price": 50,
+            "genre": "Shooter",
+            "rating": 3,
+            "quantity": 1,
+            "developer": "DICE",
+            "createdAt": "163",
+            "description": "Battlefield 1 - an action shooter developed by DICE",
+            "updatedAt": "1638452290273"
+          }
+        ],
+        "total": 50
+      },
+      {
+        "id": "EgR9mXlDKG",
+        "userId": 0,
+        "firstName": "SERGEY",
+        "lastName": "SERGEEV",
+        "deliveryAddress": "SDDDFER",
+        "deliveryDay": "2021-12-09",
+        "phoneNumber": "+375(21)1415151",
+        "orderedItems": [
+          {
+            "id": 2,
+            "image": "https://gamestracker.org/_ld/155/15582.jpg",
+            "title": "Counter-Strike: Global Offensive",
+            "price": 10,
+            "genre": "Shooter",
+            "rating": 4,
+            "quantity": 1,
+            "developer": "Valve",
+            "createdAt": "163610",
+            "description": "Counter-Strike: Global Offensive (CS:GO) is a multiplayer first-person shooter developed by Valve and Hidden Path Entertainment. It is the fourth game in the Counter-Strike series."
+          }
+        ],
+        "total": 10
+      },
+      {
+        "id": "JO2wZIvCEm",
+        "userId": 0,
+        "firstName": "sergey",
+        "lastName": "sergeev",
+        "deliveryAddress": "moscow",
+        "deliveryDay": "2021-12-27",
+        "phoneNumber": "+375(21)3432526",
+        "orderedItems": [
+          {
+            "id": 0,
+            "image": "https://upload.wikimedia.org/wikipedia/ru/9/98/Battlefield_1.jpg",
+            "title": "Battlefield 1",
+            "price": 50,
+            "genre": "Shooter",
+            "rating": 3,
+            "quantity": 1,
+            "developer": "DICE",
+            "createdAt": "163",
+            "description": "Battlefield 1 - an action shooter developed by DICE",
+            "updatedAt": "1638452290273"
+          },
+          {
+            "id": 1,
+            "image": "https://upload.wikimedia.org/wikipedia/ru/c/c8/GTAV_Official_Cover_Art.jpg",
+            "title": "Grand Theft Auto V",
+            "price": 40,
+            "genre": "Action",
+            "rating": 5,
+            "quantity": 2,
+            "developer": "Rockstar Games",
+            "createdAt": "1636",
+            "description": "Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. It is the seventh main entry in the Grand Theft Auto series."
+          },
+          {
+            "image": "https://kritikanstvo.ru/games/m/marvelsspidermanmilesmorales/covers/marvelsspidermanmilesmorales_ps4_569060.jpg",
+            "title": "Marvel's Spider-Man: Miles Morales",
+            "description": "Marvel's Spider-Man: Miles Morales is a 2020 action-adventure game developed by Insomniac Games and published by Sony Interactive Entertainment ",
+            "price": 50,
+            "genre": "Action",
+            "rating": 5,
+            "quantity": 3,
+            "developer": "Insomniac Games",
+            "createdAt": "1636279836870",
+            "updatedAt": "1636279836870",
+            "id": 4
+          }
+        ],
+        "total": 280
+      }
+    ]
+  }
