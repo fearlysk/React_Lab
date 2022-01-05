@@ -1,42 +1,51 @@
-import { Component } from "react";
+import { Component, ErrorInfo, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
-import ErrorBoundaryStyles from "./ErrorBoundary.module.scss";
-import IErrorBoundary from "@/interfaces/IErrorBoundary";
+import styles from "./ErrorBoundary.module.scss";
 
-export default class ErrorBoundary extends Component<unknown, IErrorBoundary> {
-  constructor(props: IErrorBoundary) {
+interface Props {
+  children: ReactNode;
+}
+
+interface State {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      errorFound: false,
+      hasError: false,
     };
-
     this.hideModal = this.hideModal.bind(this);
   }
 
-  componentDidCatch(error: unknown, info: unknown) {
-    this.setState({
-      errorFound: true,
-    });
-    console.error("Error: ", error);
-    console.log("Info: ", info);
+  public static getDerivedStateFromError(_: Error): State {
+    return { hasError: true };
   }
 
-  hideModal() {
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
     this.setState({
-      errorFound: false,
+      hasError: true,
     });
   }
 
-  render() {
-    if (this.state.errorFound) {
+  public hideModal() {
+    this.setState({
+      hasError: false,
+    });
+  }
+
+  public render() {
+    if (this.state.hasError) {
       return (
-        <div className={ErrorBoundaryStyles.alert}>
+        <div className={styles.alert}>
           <Navigate to="/" />
           <div>
             <h1>An error occured!</h1>
           </div>
           <div>
-            <button type="button" className={ErrorBoundaryStyles.btn} onClick={this.hideModal}>
+            <button type="button" className={styles.btn} onClick={this.hideModal}>
               X
             </button>
           </div>
@@ -46,3 +55,5 @@ export default class ErrorBoundary extends Component<unknown, IErrorBoundary> {
     return this.props.children;
   }
 }
+
+export default ErrorBoundary;

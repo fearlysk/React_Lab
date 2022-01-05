@@ -1,4 +1,4 @@
-@import '../../../styles/colors.scss';
+@import "../../../styles/parts/_colors.scss";
 
 .wrapper {
   margin: 25px 25px;
@@ -15,7 +15,7 @@
   min-width: 252px;
   min-height: 460px;
   color: $white;
-  border: 1px solid black;
+  border: 1px solid $black;
   padding: 60px 0;
   text-align: center;
   transform: translate(-50%, -50%);
@@ -34,7 +34,7 @@
   margin: 5px;
   padding: 3px 6px;
   border-radius: 4px;
-  background-color: black;
+  background-color: $black;
 }
 .productCardImg {
   width: 100%;
@@ -45,23 +45,23 @@
   transform: perspective(600px) rotateY(0deg);
   background-color: $darkbg;
 }
-.back{
+.back {
   transform: perspective(600px) rotateY(180deg);
-  background-color: #454545;
+  background-color: $graybg;
   padding: 30px 0;
 }
-.productCard:hover > .front{
+.productCard:hover > .front {
   transform: perspective(600px) rotateY(-180deg);
 }
-.productCard:hover > .back{
+.productCard:hover > .back {
   transform: perspective(600px) rotateY(0deg);
 }
 .front,
-.back{
+.back {
   position: absolute;
   overflow: hidden;
   backface-visibility: hidden;
-  transition: transform .6s linear;
+  transition: transform 0.6s linear;
   top: 0;
   border-radius: 4px;
   width: 100%;
@@ -69,7 +69,7 @@
 .productCardPagelink {
   color: $white;
   text-decoration: none;
-  border: 1px solid white;
+  border: 1px solid $white;
   border-radius: 9px;
   padding: 5px 10px;
   margin-top: 10px;

@@ -1,36 +1,20 @@
-import FooterStyles from "./Footer.module.scss";
-import RockstarLogo from "../../assets/images/Rockstar.png";
-import InsomniacLogo from "../../assets/images/Insomniac.jpg";
-import ValveLogo from "../../assets/images/Valve.png";
-import EALogo from "../../assets/images/EA.png";
+import styles from "./Footer.module.scss";
+import constants from "../../constants/constants";
 
 function Footer() {
   return (
-    <div className={FooterStyles.footer}>
-      <div className={FooterStyles.headline}>
+    <div className={styles.footer}>
+      <div className={styles.headline}>
         <h2>Incredible convinient</h2>
       </div>
-      <div className={FooterStyles.companies}>
-        <div>
-          <a href="https://www.rockstargames.com/" rel="noreferrer" target="_blank">
-            <img className={FooterStyles.image} src={RockstarLogo} alt="Not found" />
-          </a>
-        </div>
-        <div>
-          <a href="https://insomniac.games/" rel="noreferrer" target="_blank">
-            <img className={FooterStyles.image} src={InsomniacLogo} alt="Not found" />
-          </a>
-        </div>
-        <div>
-          <a href="https://valvesoftware.com/" rel="noreferrer" target="_blank">
-            <img className={FooterStyles.image} src={ValveLogo} alt="Not found" />
-          </a>
-        </div>
-        <div>
-          <a href="https://www.ea.com/ru-ru" rel="noreferrer" target="_blank">
-            <img className={FooterStyles.image} src={EALogo} alt="Not found" />
-          </a>
-        </div>
+      <div className={styles.companies}>
+        {constants.footerLinks.map((link) => (
+          <div key={link.id}>
+            <a href={link.url} rel="noreferrer" target="_blank">
+              <img className={styles.image} src={link.image} alt="Not found" />
+            </a>
+          </div>
+        ))}
       </div>
     </div>
   );

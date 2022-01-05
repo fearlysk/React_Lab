@@ -1,4 +1,9 @@
-@import '../../styles/colors.scss';
+@import "../../styles/parts/_colors.scss";
+
+@mixin open-sans {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+}
 
 .header {
   background-color: $darkgray;
@@ -6,7 +11,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'Open Sans', sans-serif;
+  @include open-sans;
   padding: 20px 0;
 }
 .headline {
@@ -23,7 +28,7 @@
   align-items: center;
   padding: 20px 20px;
   transition: 0.3s;
-  border-bottom: 5px solid transparent;
+  border-bottom: 5px solid $transparent;
   cursor: pointer;
 }
 .navItemBtn {
@@ -31,11 +36,10 @@
   color: $white;
   cursor: pointer;
   outline: none;
-  background-color: #222222;
+  background-color: $darkgray;
   border: none;
   transition: none;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 16px;
+  @include open-sans;
 }
 .navItem:hover {
   border-bottom: 5px solid $purple;
@@ -82,22 +86,23 @@
   text-decoration: none;
   color: $white;
 }
-.navLink{
+.navLink {
   text-decoration: none;
   color: $white;
   cursor: pointer;
 }
 .products {
-   padding: 20px 20px;
-   &::after {
-   content: '';
-   width: 0;
-   height: 0;
-   border: 5px solid transparent;
-   border-top-color: $white;
-   position: relative;
-   top: 3px;
-   left: 7px;
+  padding: 20px 20px;
+
+  &::after {
+    content: "";
+    width: 0;
+    height: 0;
+    border: 5px solid $transparent;
+    border-top-color: $white;
+    position: relative;
+    top: 3px;
+    left: 7px;
   }
 }
 .homeLink {

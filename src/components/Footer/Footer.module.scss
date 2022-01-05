@@ -1,9 +1,9 @@
-@import '../../styles/colors.scss'; 
+@import "../../styles/parts/_colors.scss";
 
 .footer {
   background-color: $darkgray;
   text-align: center;
-  color: white;
+  color: $white;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -2,16 +2,15 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import IProduct from "@/interfaces/IProduct";
 import ProductsCard from "./ProductsCard/ProductsCard";
-import ProductsStyles from "./Products.module.scss";
+import styles from "./Products.module.scss";
+import fetchProducts from "../../api/fetchProducts";
 
 function CategoryPage() {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/products`)
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
+    fetchProducts().then((data) => setProducts(data));
   }, []);
 
   const filteredByCategory = products.filter(
@@ -22,23 +21,11 @@ function CategoryPage() {
   );
 
   return (
-    <div className={ProductsStyles.wrapper}>
-      <h2 className={ProductsStyles.headline}>Products for: {category?.toUpperCase()}</h2>
-      <div className={ProductsStyles.productsList}>
+    <div>
+      <h2 className={styles.headline}>Products for: {category?.toUpperCase()}</h2>
+      <div className={styles.productsList}>
         {filteredByCategory.map((product: IProduct) => (
-          <ProductsCard
-            key={product.id}
-            id={product.id}
-            image={product.image}
-            title={product.title}
-            price={product.price}
-            genre={product.genre}
-            rating={product.rating}
-            pc={product.pc}
-            xbox={product.xbox}
-            playstation={product.playstation}
-            description={product.description}
-          />
+          <ProductsCard key={product.id} {...product} />
         ))}
       </div>
     </div>

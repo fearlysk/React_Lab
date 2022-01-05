@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import Home from "./pages/Home/Home";
@@ -13,24 +12,21 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 class App extends React.Component {
   render() {
     return (
-      <div className="app__wrapper">
-        <div className="app__header">
-          <Header />
-        </div>
+      <div className="app">
+        <Header />
         <div className="app__content">
           <ErrorBoundary>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:category" element={<CategoryPage />} />
+              <Route path="/products" element={<Products />}>
+                <Route path=":category" element={<CategoryPage />} />
+              </Route>
               <Route path="/about" element={<About />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </ErrorBoundary>
         </div>
-        <div className="app__footer">
-          <Footer />
-        </div>
+        <Footer />
       </div>
     );
   }

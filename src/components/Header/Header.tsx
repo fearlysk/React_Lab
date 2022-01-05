@@ -1,64 +1,69 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import constants from "../../constants/constants";
-import HeaderStyles from "./Header.module.scss";
-import HeaderProductsStyles from "./HeaderProducts.module.scss";
+import styles from "./Header.module.scss";
+import productsStyles from "./HeaderProducts.module.scss";
+import ICategory from "@/interfaces/ICategory";
+import fetchCategories from "../../api/fetchCategories";
 
 function Header() {
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
 
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetchCategories().then((data) => setCategories(data));
+  }, []);
+
   return (
-    <div className={HeaderStyles.header}>
-      <h1 className={HeaderStyles.headline}>
-        <Link className={HeaderStyles.homeLink} to={constants.HOME}>
+    <div className={styles.header}>
+      <h1 className={styles.headline}>
+        <Link className={styles.homeLink} to={constants.HOME}>
           Game Store
         </Link>
       </h1>
-      <div className={HeaderStyles.nav}>
-        <div className={splitLocation[1] === "" ? HeaderStyles.active : HeaderStyles.navItem}>
-          <Link className={HeaderStyles.navLink} to={constants.HOME}>
+      <div className={styles.nav}>
+        <div className={splitLocation[1] === "" ? styles.active : styles.navItem}>
+          <Link className={styles.navLink} to={constants.HOME}>
             Home
           </Link>
         </div>
         <div
           className={
             splitLocation[1] === "products"
-              ? `${HeaderStyles.active} ,  ${HeaderStyles.products} ,  ${HeaderStyles.navItem}`
-              : `${HeaderStyles.navItem} ,  ${HeaderStyles.products}`
+              ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
+              : `${styles.navItem} ,  ${styles.products}`
           }
         >
-          <div className={HeaderProductsStyles.link}>
-            <Link className={HeaderProductsStyles.linkItem} to={constants.PRODUCTS}>
+          <div className={productsStyles.link}>
+            <Link className={productsStyles.linkItem} to={constants.PRODUCTS}>
               Products
             </Link>
           </div>
-          <div className={HeaderStyles.dropdownWrapper}>
-            <ul className={HeaderStyles.dropdown}>
-              <Link className={HeaderProductsStyles.linkItem} to={constants.PC}>
-                <li className={HeaderProductsStyles.dropdownItem}>PC</li>
-              </Link>
-              <Link className={HeaderProductsStyles.linkItem} to={constants.XBOX}>
-                <li className={HeaderProductsStyles.dropdownItem}>Xbox</li>
-              </Link>
-              <Link className={HeaderProductsStyles.linkItem} to={constants.PLAYSTATION}>
-                <li className={HeaderProductsStyles.dropdownItem}>PlayStation</li>
-              </Link>
+          <div className={styles.dropdownWrapper}>
+            <ul className={styles.dropdown}>
+              {categories.map((category: ICategory) => (
+                <Link key={category.id} className={productsStyles.linkItem} to={category.url}>
+                  <li className={productsStyles.dropdownItem}>{category.name}</li>
+                </Link>
+              ))}
             </ul>
           </div>
         </div>
-        <div className={splitLocation[1] === "about" ? HeaderStyles.active : HeaderStyles.navItem}>
-          <Link className={HeaderProductsStyles.linkItem} to={constants.ABOUT}>
+        <div className={splitLocation[1] === "about" ? styles.active : styles.navItem}>
+          <Link className={productsStyles.linkItem} to={constants.ABOUT}>
             About
           </Link>
         </div>
-        <div className={HeaderStyles.navItem}>
-          <button type="button" className={HeaderStyles.navItemBtn}>
+        <div className={styles.navItem}>
+          <button type="button" className={styles.navItemBtn}>
             Sign In
           </button>
         </div>
-        <div className={HeaderStyles.navItem}>
-          <button type="button" className={HeaderStyles.navItemBtn}>
+        <div className={styles.navItem}>
+          <button type="button" className={styles.navItemBtn}>
             Sign Up
           </button>
         </div>

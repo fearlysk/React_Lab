@@ -1,4 +1,4 @@
-@import '../../styles/colors.scss';
+@import "../../styles/parts/_colors.scss";
 
 .headline {
   margin: 15px 20px 0 20px;
@@ -12,7 +12,7 @@
   margin: 10px auto;
   border: 1px solid $purple;
   border-radius: 10px;
-  background-color: rgba(120,120,120,0.16);
+  background-color: rgba(120, 120, 120, 0.16);
 }
 .productsList {
   display: flex;

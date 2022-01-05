@@ -168,6 +168,26 @@
       "id": 4
     }
   ],
+  "categories": [
+    {
+      "id": 0,
+      "name": "PC",
+      "url": "/products/pc",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Windows_logo_-_2012.svg/2048px-Windows_logo_-_2012.svg.png"
+    },
+    {
+      "id": 1,
+      "name": "Xbox",
+      "url": "/products/xbox",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Xbox_logo_2012_cropped.svg/2072px-Xbox_logo_2012_cropped.svg.png"
+    },
+    {
+      "id": 2,
+      "name": "Playstation",
+      "url": "/products/playstation",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Playstation_logo_colour.svg/1009px-Playstation_logo_colour.svg.png"
+    }
+  ],
   "orders": [
     {
       "id": "R3S2ASBHrq",
