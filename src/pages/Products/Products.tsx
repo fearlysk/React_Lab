@@ -3,13 +3,13 @@ import { Outlet, useParams } from "react-router-dom";
 import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
-import fetchProducts from "../../api/fetchProducts";
+import fetchData from "../../api/fetchData";
 
 function Products() {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
   useEffect(() => {
-    fetchProducts().then((data) => setProducts(data));
+    fetchData(`http://localhost:3000/products`).then((data) => setProducts(data));
   }, []);
 
   return (

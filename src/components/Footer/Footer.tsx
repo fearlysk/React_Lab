@@ -1,5 +1,5 @@
 import styles from "./Footer.module.scss";
-import constants from "../../constants/constants";
+import footerLinks from "../../constants/footer";
 
 function Footer() {
   return (
@@ -8,7 +8,7 @@ function Footer() {
         <h2>Incredible convinient</h2>
       </div>
       <div className={styles.companies}>
-        {constants.footerLinks.map((link) => (
+        {footerLinks.map((link) => (
           <div key={link.id}>
             <a href={link.url} rel="noreferrer" target="_blank">
               <img className={styles.image} src={link.image} alt="Not found" />

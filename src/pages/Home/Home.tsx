@@ -2,11 +2,9 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductsCard from "../Products/ProductsCard/ProductsCard";
 import styles from "./Home.module.scss";
-import ProductsStyles from "../Products/Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import ICategory from "@/interfaces/ICategory";
-import fetchProducts from "../../api/fetchProducts";
-import fetchCategories from "../../api/fetchCategories";
+import fetchData from "../../api/fetchData";
 
 function Home() {
   const [value, setValue] = useState("");
@@ -14,13 +12,14 @@ function Home() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchProducts().then((data) => setProducts(data));
-    fetchCategories().then((data) => setCategories(data));
+    const productsData = fetchData(`http://localhost:3000/products`).then((data) => setProducts(data));
+    const categoriesData = fetchData(`http://localhost:3000/categories`).then((data) => setCategories(data));
+    Promise.allSettled([productsData, categoriesData]);
   }, []);
 
-  const ProductsClasses = [ProductsStyles.wrapper];
+  const ProductsClasses = [styles.productsWrapper];
   if (value === "") {
-    ProductsClasses.push(ProductsStyles.hidden);
+    ProductsClasses.push(styles.hidden);
   }
 
   const filteredProducts = products.filter((product: IProduct) =>
@@ -39,8 +38,8 @@ function Home() {
         />
       </div>
       <div className={ProductsClasses.join(" ")}>
-        <h2 className={ProductsStyles.headline}>Products</h2>
-        <div className={ProductsStyles.productsList}>
+        <h2 className={styles.headline}>Products</h2>
+        <div className={styles.productsList}>
           {filteredProducts.map((product: IProduct) => (
             <ProductsCard key={product.id} {...product} />
           ))}
@@ -66,8 +65,8 @@ function Home() {
           <h2 className={styles.newHeadlineText}>New In Store:</h2>
         </div>
         <div className={styles.new}>
-          <div className={ProductsStyles.wrapper}>
-            <div className={ProductsStyles.productsList}>
+          <div className={styles.wrapper}>
+            <div className={styles.productsList}>
               {newProducts.map((product: IProduct) => (
                 <ProductsCard key={product.id} {...product} />
               ))}

@@ -3,28 +3,21 @@ import { useState, useEffect } from "react";
 import IProduct from "@/interfaces/IProduct";
 import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
-import fetchProducts from "../../api/fetchProducts";
+import fetchData from "../../api/fetchData";
 
 function CategoryPage() {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetchProducts().then((data) => setProducts(data));
+    fetchData(`http://localhost:3000/products?${category}=true`).then((data) => setProducts(data));
   }, []);
-
-  const filteredByCategory = products.filter(
-    (product: IProduct) =>
-      (product.pc === true && category === "pc") ||
-      (product.xbox === true && category === "xbox") ||
-      (product.playstation === true && category === "playstation")
-  );
 
   return (
     <div>
       <h2 className={styles.headline}>Products for: {category?.toUpperCase()}</h2>
       <div className={styles.productsList}>
-        {filteredByCategory.map((product: IProduct) => (
+        {products.map((product: IProduct) => (
           <ProductsCard key={product.id} {...product} />
         ))}
       </div>

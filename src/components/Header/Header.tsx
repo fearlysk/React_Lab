@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import constants from "../../constants/constants";
+import { useLocation, NavLink } from "react-router-dom";
+import routes from "../../constants/routes";
 import styles from "./Header.module.scss";
-import productsStyles from "./HeaderProducts.module.scss";
 import ICategory from "@/interfaces/ICategory";
-import fetchCategories from "../../api/fetchCategories";
+import fetchData from "../../api/fetchData";
 
 function Header() {
   const location = useLocation();
@@ -14,22 +13,20 @@ function Header() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetchCategories().then((data) => setCategories(data));
+    fetchData(`http://localhost:3000/categories`).then((data) => setCategories(data));
   }, []);
 
   return (
     <div className={styles.header}>
       <h1 className={styles.headline}>
-        <Link className={styles.homeLink} to={constants.HOME}>
+        <NavLink className={styles.homeLink} to={routes.HOME}>
           Game Store
-        </Link>
+        </NavLink>
       </h1>
       <div className={styles.nav}>
-        <div className={splitLocation[1] === "" ? styles.active : styles.navItem}>
-          <Link className={styles.navLink} to={constants.HOME}>
-            Home
-          </Link>
-        </div>
+        <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+          Home
+        </NavLink>
         <div
           className={
             splitLocation[1] === "products"
@@ -37,26 +34,31 @@ function Header() {
               : `${styles.navItem} ,  ${styles.products}`
           }
         >
-          <div className={productsStyles.link}>
-            <Link className={productsStyles.linkItem} to={constants.PRODUCTS}>
+          <div className={styles.link}>
+            <NavLink to={routes.PRODUCTS} className={styles.linkItem}>
               Products
-            </Link>
+            </NavLink>
           </div>
           <div className={styles.dropdownWrapper}>
             <ul className={styles.dropdown}>
               {categories.map((category: ICategory) => (
-                <Link key={category.id} className={productsStyles.linkItem} to={category.url}>
-                  <li className={productsStyles.dropdownItem}>{category.name}</li>
-                </Link>
+                <NavLink
+                  key={category.id}
+                  to={category.url}
+                  onClick={() => {
+                    window.location.href = category.url;
+                  }}
+                  className={({ isActive }) => (isActive ? `${styles.activeDropdownItem}` : `${styles.dropdownItem}`)}
+                >
+                  {category.name}
+                </NavLink>
               ))}
             </ul>
           </div>
         </div>
-        <div className={splitLocation[1] === "about" ? styles.active : styles.navItem}>
-          <Link className={productsStyles.linkItem} to={constants.ABOUT}>
-            About
-          </Link>
-        </div>
+        <NavLink to={routes.ABOUT} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+          About
+        </NavLink>
         <div className={styles.navItem}>
           <button type="button" className={styles.navItemBtn}>
             Sign In

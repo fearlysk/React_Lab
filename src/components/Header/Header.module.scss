@@ -30,6 +30,8 @@
   transition: 0.3s;
   border-bottom: 5px solid $transparent;
   cursor: pointer;
+  color: $white;
+  text-decoration: none;
 }
 .navItemBtn {
   text-decoration: none;
@@ -59,15 +61,15 @@
   display: none;
   position: absolute;
   top: 80px;
-  margin-left: 0px;
   z-index: 4;
+  margin: 20px -20px;
 }
 .dropdown {
   display: flex;
   flex-direction: column;
   list-style-type: none;
   background-color: $graybg;
-  padding: 0 20px;
+  padding: 0 30px;
   padding-bottom: 25px;
   text-align: left;
   font-size: 15px;
@@ -81,6 +83,8 @@
   border-bottom: 5px solid $purple;
   background-color: $graybg;
   cursor: pointer;
+  color: $white;
+  text-decoration: none;
 }
 .home {
   text-decoration: none;
@@ -92,8 +96,6 @@
   cursor: pointer;
 }
 .products {
-  padding: 20px 20px;
-
   &::after {
     content: "";
     width: 0;
@@ -108,4 +110,44 @@
 .homeLink {
   color: $white;
   text-decoration: none;
+}
+.link {
+  margin-top: 0px;
+  display: flex;
+  flex-direction: column;
+}
+.linkItem {
+  text-decoration: none;
+  color: $white;
+}
+.activeDropdownItem {
+  text-decoration: none;
+  color: $white;
+  padding: 10px 20px;
+  margin-top: 25px;
+  background-color: $darkbg;
+  z-index: 4;
+}
+.dropdownItem {
+  margin-top: 25px;
+  background-color: $purple;
+  padding: 10px 20px;
+  transition: 0.3s;
+  z-index: 4;
+  color: $white;
+  text-decoration: none;
+}
+.dropdownItem:hover {
+  transition: 0.3s;
+  background-color: $darkbg;
+}
+.dropdownItem:hover .dropdownItemLink {
+  color: $graybg;
+  transition: 0.3s;
+}
+.dropdownItemLink {
+  text-decoration: none;
+  padding: 5px 20px;
+  color: $white;
+  transition: 0.3s;
 }

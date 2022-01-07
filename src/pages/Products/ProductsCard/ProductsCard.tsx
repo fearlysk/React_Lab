@@ -1,3 +1,4 @@
+import { Rating } from "react-simple-star-rating";
 import styles from "./ProductsCard.module.scss";
 
 interface ProductsCardProps {
@@ -28,7 +29,7 @@ function ProductsCard(product: ProductsCardProps) {
           <p>Title: {product.title}</p>
           <p>Price: {product.price}</p>
           <p>Genre: {product.genre}</p>
-          <p>Rating: {product.rating}</p>
+          <Rating ratingValue={product.rating * 20} />
         </div>
         <div className={styles.back}>
           <p>{product.description}</p>
