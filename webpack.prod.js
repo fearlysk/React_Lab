@@ -5,6 +5,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const common = require("./webpack.common");
+const Dotenv = require("dotenv").config();
 
 module.exports = (env, argv) => {
   const commonConfig = common(env, argv);
@@ -57,6 +58,7 @@ module.exports = (env, argv) => {
         filename: "[path][base].br[query]",
         threshold: common.filesThreshold, // (bytes). Only assets bigger than this size are processed
       }),
+      new Dotenv(),
     ],
   };
 

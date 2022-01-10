@@ -4,7 +4,8 @@ import ProductsCard from "../Products/ProductsCard/ProductsCard";
 import styles from "./Home.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import ICategory from "@/interfaces/ICategory";
-import fetchData from "../../api/fetchData";
+import getProducts from "../../api/products";
+import getCategories from "../../api/categories";
 
 function Home() {
   const [value, setValue] = useState("");
@@ -12,8 +13,8 @@ function Home() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const productsData = fetchData(`http://localhost:3000/products`).then((data) => setProducts(data));
-    const categoriesData = fetchData(`http://localhost:3000/categories`).then((data) => setCategories(data));
+    const productsData = getProducts().then((data) => setProducts(data));
+    const categoriesData = getCategories(`categories`).then((data) => setCategories(data));
     Promise.allSettled([productsData, categoriesData]);
   }, []);
 

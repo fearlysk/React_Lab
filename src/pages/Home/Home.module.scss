@@ -1,9 +1,5 @@
 @import "../../styles/parts/_colors.scss";
-
-@mixin flex-center {
-  display: flex;
-  justify-content: center;
-}
+@import "../../styles/parts/mixins";
 
 .wrapper {
   @include flex-center;

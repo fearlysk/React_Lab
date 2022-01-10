@@ -1,20 +1,34 @@
 import { useEffect, useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
-import fetchData from "../../api/fetchData";
+import getProducts from "../../api/products";
+import getCategories from "../../api/categories";
 
 function Products() {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
+  const [sortedProducts, setSortedProducts] = useState([]);
+
   useEffect(() => {
-    fetchData(`http://localhost:3000/products`).then((data) => setProducts(data));
+    const productsData = getProducts().then((data) => setProducts(data));
+    const sortedProductsData = getCategories(`products?${category}=true`).then((data) => setSortedProducts(data));
+    Promise.allSettled([productsData, sortedProductsData]);
   }, []);
 
   return (
     <div className={styles.wrapper}>
-      <Outlet />
+      {category && (
+        <div>
+          <h2 className={styles.headline}>Products for: {category?.toUpperCase()}</h2>
+          <div className={styles.productsList}>
+            {sortedProducts.map((sortedProduct: IProduct) => (
+              <ProductsCard key={sortedProduct.id} {...sortedProduct} />
+            ))}
+          </div>
+        </div>
+      )}
       {!category && (
         <>
           <h2 className={styles.headline}>All Products</h2>

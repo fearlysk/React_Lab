@@ -1,9 +1,5 @@
 @import "../../styles/parts/_colors.scss";
-
-@mixin open-sans {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-}
+@import "../../styles/parts/mixins";
 
 .header {
   background-color: $darkgray;
