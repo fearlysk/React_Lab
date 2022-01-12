@@ -3,7 +3,7 @@ import { useLocation, NavLink } from "react-router-dom";
 import routes from "../../constants/routes";
 import styles from "./Header.module.scss";
 import ICategory from "@/interfaces/ICategory";
-import getCategories from "../../api/categories";
+import { getCategories } from "../../api/categories";
 
 function Header() {
   const location = useLocation();
@@ -13,7 +13,7 @@ function Header() {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    getCategories(`categories`).then((data) => setCategories(data));
+    getCategories().then((data) => setCategories(data));
   }, []);
 
   return (

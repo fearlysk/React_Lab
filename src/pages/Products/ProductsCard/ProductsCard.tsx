@@ -8,9 +8,7 @@ interface ProductsCardProps {
   price: number;
   genre: string;
   rating: number;
-  pc: boolean;
-  xbox: boolean;
-  playstation: boolean;
+  category: string;
   description: string;
 }
 
@@ -22,9 +20,7 @@ function ProductsCard(product: ProductsCardProps) {
           <img className={styles.productCardImg} src={product.image} alt="Not Found" />
           <hr />
           <div className={styles.productPlatforms}>
-            {product.pc && <div className={styles.productPlatformsItem}>PC</div>}
-            {product.xbox && <div className={styles.productPlatformsItem}>Xbox</div>}
-            {product.playstation && <div className={styles.productPlatformsItem}>PS</div>}
+            <div className={styles.productPlatformsItem}>{product.category.toUpperCase()}</div>
           </div>
           <p>Title: {product.title}</p>
           <p>Price: {product.price}</p>

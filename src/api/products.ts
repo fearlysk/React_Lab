@@ -1,7 +1,11 @@
 import http from "../services/http";
 
-function getProducts() {
-  return http(`products`);
+const base = "/products";
+
+export function getProducts(query = "") {
+  return http(`${base}${query}`);
 }
 
-export default getProducts;
+export function editProducts() {
+  return null; // temp to avoid Prefer default export  import/prefer-default-export
+}

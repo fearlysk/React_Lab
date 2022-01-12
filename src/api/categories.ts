@@ -1,7 +1,11 @@
 import http from "../services/http";
 
-function getCategories(url: string) {
-  return http(url);
+const base = "/categories";
+
+export function getCategories() {
+  return http(`${base}`);
 }
 
-export default getCategories;
+export function editCategories() {
+  return null; // temp to avoid Prefer default export  import/prefer-default-export
+}

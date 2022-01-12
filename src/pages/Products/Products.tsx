@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom";
 import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
-import getProducts from "../../api/products";
-import getCategories from "../../api/categories";
+import { getProducts } from "../../api/products";
 
 function Products() {
   const { category } = useParams();
@@ -12,9 +11,10 @@ function Products() {
   const [sortedProducts, setSortedProducts] = useState([]);
 
   useEffect(() => {
-    const productsData = getProducts().then((data) => setProducts(data));
-    const sortedProductsData = getCategories(`products?${category}=true`).then((data) => setSortedProducts(data));
-    Promise.allSettled([productsData, sortedProductsData]);
+    Promise.allSettled([
+      getProducts().then((data) => setProducts(data)),
+      getProducts(`?category=${category}`).then((data) => setSortedProducts(data)),
+    ]);
   }, []);
 
   return (

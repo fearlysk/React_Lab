@@ -5,8 +5,6 @@ export default interface IProduct {
   price: number;
   genre: string;
   rating: number;
-  pc: boolean;
-  xbox: boolean;
-  playstation: boolean;
+  category: string;
   description: string;
 }
