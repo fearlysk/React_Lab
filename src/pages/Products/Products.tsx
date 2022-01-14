@@ -11,10 +11,21 @@ function Products() {
   const [sortedProducts, setSortedProducts] = useState([]);
 
   useEffect(() => {
-    Promise.allSettled([
-      getProducts().then((data) => setProducts(data)),
-      getProducts(`?category=${category}`).then((data) => setSortedProducts(data)),
-    ]);
+    Promise.allSettled([getProducts(), getProducts(`?category=${category}`)])
+      .then((data) =>
+        data.map((item) => {
+          if (item.status === "fulfilled") {
+            return item.value;
+          }
+          return null;
+        })
+      )
+      .then((data) => data.filter((item) => !!item))
+      .then((data) => Promise.all(data))
+      .then((data) => {
+        setProducts(data[0]);
+        setSortedProducts(data[1]);
+      });
   }, []);
 
   return (
