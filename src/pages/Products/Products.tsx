@@ -4,14 +4,17 @@ import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import { getProducts } from "../../api/products";
+import objectToGetParams from "../../utils/urls";
 
 function Products() {
   const { category } = useParams();
   const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
 
+  const query = objectToGetParams({ category: `${category}` });
+
   useEffect(() => {
-    Promise.allSettled([getProducts(), getProducts(`?category=${category}`)])
+    Promise.allSettled([getProducts(), getProducts(query)])
       .then((data) =>
         data.map((item) => {
           if (item.status === "fulfilled") {
