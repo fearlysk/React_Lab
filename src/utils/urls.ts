@@ -4,6 +4,6 @@ interface IParams {
 
 export default function objectToGetParams(params: IParams) {
   return `?${Object.keys(params)
-    .map((key) => `${key}=${params[key]}`)
+    .map((key) => `${key}=${params[key].toString()}`)
     .join("&")}`;
 }

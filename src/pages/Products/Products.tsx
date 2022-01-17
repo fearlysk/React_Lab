@@ -4,6 +4,7 @@ import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import { getProducts } from "../../api/products";
+import promisesFilter from "../../utils/promisesFilter";
 import objectToGetParams from "../../utils/urls";
 
 function Products() {
@@ -12,23 +13,13 @@ function Products() {
   const [sortedProducts, setSortedProducts] = useState([]);
 
   const query = objectToGetParams({ category: `${category}` });
+  const promises = [getProducts(), getProducts(query)];
 
   useEffect(() => {
-    Promise.allSettled([getProducts(), getProducts(query)])
-      .then((data) =>
-        data.map((item) => {
-          if (item.status === "fulfilled") {
-            return item.value;
-          }
-          return null;
-        })
-      )
-      .then((data) => data.filter((item) => !!item))
-      .then((data) => Promise.all(data))
-      .then((data) => {
-        setProducts(data[0]);
-        setSortedProducts(data[1]);
-      });
+    promisesFilter(promises).then((data) => {
+      setProducts(data[0] as never);
+      setSortedProducts(data[1] as never);
+    });
   }, []);
 
   return (
