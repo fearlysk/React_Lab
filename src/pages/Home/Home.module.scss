@@ -1,0 +1,112 @@
+@import "../../styles/parts/_colors.scss";
+@import "../../styles/parts/mixins";
+
+.wrapper {
+  @include flex-center;
+  align-items: center;
+  flex-direction: column;
+  margin: 15px 0;
+}
+.searchForm {
+  border: 1px solid $purple;
+  border-radius: 3px;
+  width: 80%;
+  color: $white;
+  margin: 20px 0;
+  padding-right: 10px;
+}
+.searchInput {
+  border-radius: 3px;
+  padding: 10px 0 10px 10px;
+  width: 100%;
+  background-color: $translucent;
+  color: $white;
+}
+.categoriesWrapper {
+  background-color: $translucentgray;
+  width: 90%;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+.categoriesHeadline {
+  margin: 10px 20px;
+  border-bottom: 2px solid $lightgray;
+}
+.categoriesItemLogo {
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.categories {
+  @include flex-center;
+  flex-direction: row;
+  text-align: center;
+}
+.categoriesHeadlineText {
+  padding: 10px;
+}
+.categoriesItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 20%;
+  margin: 20px;
+  padding: 10px;
+  border: 3px solid $lightgray;
+  border-bottom: 7px solid white;
+  border-radius: 9px;
+  transition: 0.3s;
+}
+.categoriesItemTitle {
+  margin: 10px 0;
+  color: $white;
+  text-decoration: none;
+}
+.categoriesItem:hover {
+  border: 3px solid $purple;
+  border-bottom: 7px solid $purple;
+  transition: 0.3s;
+}
+.linkItem {
+  text-decoration: none;
+}
+.newWrapper {
+  background-color: $translucentgray;
+  width: 90%;
+  border-radius: 10px;
+  margin: 20px 0;
+  padding-bottom: 20px;
+}
+.newHeadline {
+  margin: 10px 20px;
+  border-bottom: 2px solid $lightgray;
+}
+.newHeadlineText {
+  padding: 10px;
+}
+.headline {
+  margin: 15px 20px 0 20px;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid $white;
+}
+.productsWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 10px auto;
+  border: 1px solid $purple;
+  border-radius: 10px;
+  background-color: $translucentdarkgray;
+}
+.productsList {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 0 25px 0;
+}
+.hidden {
+  display: none;
+}

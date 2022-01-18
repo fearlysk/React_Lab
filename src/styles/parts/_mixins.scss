@@ -1,0 +1,8 @@
+@mixin open-sans {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+}
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+}

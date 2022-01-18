@@ -1,0 +1,13 @@
+@import "../../styles/parts/_colors.scss";
+
+.alert {
+  display: flex;
+  justify-content: space-around;
+  background-color: $crimson;
+  width: 100%;
+  height: auto;
+  padding: 10px 30px;
+}
+.btn {
+  padding: 10px 20px;
+}
