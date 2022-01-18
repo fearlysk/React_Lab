@@ -1,4 +1,4 @@
-export default function promisesFilter(promises: Promise<string>[]) {
+export default function settlePromises(promises: Promise<string>[]) {
   return Promise.allSettled(promises)
     .then((data) =>
       data.map((item) => {

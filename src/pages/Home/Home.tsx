@@ -6,28 +6,19 @@ import IProduct from "@/interfaces/IProduct";
 import ICategory from "@/interfaces/ICategory";
 import { getProducts } from "../../api/products";
 import { getCategories } from "../../api/categories";
+import settlePromises from "../../utils/settlePromises";
 
 function Home() {
   const [value, setValue] = useState("");
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const promises = [getProducts(), getCategories()];
 
   useEffect(() => {
-    Promise.allSettled([getProducts(), getCategories()])
-      .then((data) =>
-        data.map((item) => {
-          if (item.status === "fulfilled") {
-            return item.value;
-          }
-          return null;
-        })
-      )
-      .then((data) => data.filter((item) => !!item))
-      .then((data) => Promise.all(data))
-      .then((data) => {
-        setProducts(data[0]);
-        setCategories(data[1]);
-      });
+    settlePromises(promises).then((data) => {
+      setProducts(data[0] as never);
+      setCategories(data[1] as never);
+    });
   }, []);
 
   const ProductsClasses = [styles.productsWrapper];

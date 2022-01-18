@@ -4,7 +4,7 @@ import ProductsCard from "./ProductsCard/ProductsCard";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import { getProducts } from "../../api/products";
-import promisesFilter from "../../utils/promisesFilter";
+import settlePromises from "../../utils/settlePromises";
 import objectToGetParams from "../../utils/urls";
 
 function Products() {
@@ -12,11 +12,11 @@ function Products() {
   const [products, setProducts] = useState([]);
   const [sortedProducts, setSortedProducts] = useState([]);
 
-  const query = objectToGetParams({ category: `${category}` });
+  const query = objectToGetParams({ category });
   const promises = [getProducts(), getProducts(query)];
 
   useEffect(() => {
-    promisesFilter(promises).then((data) => {
+    settlePromises(promises).then((data) => {
       setProducts(data[0] as never);
       setSortedProducts(data[1] as never);
     });
