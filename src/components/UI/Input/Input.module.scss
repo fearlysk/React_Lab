@@ -1,0 +1,30 @@
+@import "../../../styles/parts/colors.scss";
+
+.inputLabel {
+  margin: 10px;
+}
+.textInput {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 5px 10px;
+  width: 90%;
+  background-color: $black;
+  padding: 10px;
+  border: 1px solid $white;
+  border-radius: 5px;
+  color: $white;
+}
+.errorMessage {
+  margin-left: 5px;
+  color: $crimson;
+}
+.errorMessage::before {
+  content: "! ";
+  border: 1px solid $crimson;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 12px;
+  font-weight: bolder;
+  margin: 0 5px;
+}

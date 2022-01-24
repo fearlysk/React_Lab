@@ -1,0 +1,48 @@
+@import "../../../../styles/parts/colors";
+@import "../../../../styles/parts/mixins";
+
+.userAuthFormWrapper {
+  border: 1px solid $white;
+  padding: 10px 15px;
+  background-color: $black;
+  color: $white;
+  border-radius: 10px;
+  margin: 0;
+}
+.modalHeader {
+  @include flex-around;
+}
+.headline {
+  margin: 5px;
+}
+.closeBtn {
+  margin: 5px;
+  padding: 5px 10px;
+  color: $white;
+  background-color: $black;
+  border: 0;
+  font-size: 1.5em;
+  border-radius: 10px;
+}
+.userAuthForm {
+  margin: 20px auto;
+  width: 60%;
+}
+.submitBtn {
+  margin: 10px;
+  padding: 10px 50px;
+  width: 100%;
+  background-color: $purple;
+  border: 0;
+  border-radius: 10px;
+  color: $white;
+}
+.errorModal {
+  background-color: $crimson;
+  color: $white;
+  margin: 15px auto;
+  width: 90%;
+  padding: 5px;
+  border: 1px solid $white;
+  border-radius: 10px;
+}
