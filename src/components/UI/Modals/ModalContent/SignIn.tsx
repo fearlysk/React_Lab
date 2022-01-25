@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import IUserData from "../../../../interfaces/IUserData";
 import Input from "../../Input/Input";
 import styles from "./UserAuth.module.scss";
 import signIn from "../../../../api/auth/signIn";
 import Modal from "../Modal";
-
-const validationSchema = yup.object().shape({
-  email: yup.string().email().required(),
-  password: yup.string().min(4).required(),
-});
+import { SignInValidationSchema } from "../../../../utils/schemas";
 
 type Props = {
   LoginModalOpen: boolean;
@@ -26,7 +21,7 @@ function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
     formState: { errors },
   } = useForm<IUserData>({
     mode: "onBlur",
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(SignInValidationSchema),
   });
 
   const [modalOpen, setModalOpen] = useState(false);

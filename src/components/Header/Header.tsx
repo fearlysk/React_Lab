@@ -45,145 +45,136 @@ function Header() {
   };
 
   return (
-    <UserContext.Consumer>
-      {(value) =>
-        value[0] ? (
-          <div className={styles.header}>
-            <Modal modalOpen={modalOpen}>
-              <SignIn LoginModalOpen={LoginModalOpen} setLoginModalOpen={setLoginModalOpen} />
-            </Modal>
-            <Modal modalOpen={modalOpen}>
-              <SignUp RegModalOpen={RegModalOpen} setRegModalOpen={setRegModalOpen} />
-            </Modal>
-            <h1 className={styles.headline}>
-              <NavLink className={styles.homeLink} to={routes.HOME}>
-                Game Store
-              </NavLink>
-            </h1>
-            <div className={styles.nav}>
-              <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
-                Home
-              </NavLink>
-              <div
-                className={
-                  splitLocation[1] === "products"
-                    ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
-                    : `${styles.navItem} ,  ${styles.products}`
-                }
-              >
-                <div className={styles.link}>
-                  <NavLink to={routes.PRODUCTS} className={styles.linkItem}>
-                    Products
-                  </NavLink>
-                </div>
-                <div className={styles.dropdownWrapper}>
-                  <ul className={styles.dropdown}>
-                    {categories.map((category: ICategory) => (
-                      <NavLink
-                        key={category.id}
-                        to={category.url}
-                        onClick={() => {
-                          window.location.href = category.url;
-                        }}
-                        className={({ isActive }) =>
-                          isActive ? `${styles.activeDropdownItem}` : `${styles.dropdownItem}`
-                        }
-                      >
-                        {category.name}
-                      </NavLink>
-                    ))}
-                  </ul>
-                </div>
+    <div>
+      {user ? (
+        <div className={styles.header}>
+          <Modal modalOpen={modalOpen}>
+            <SignIn LoginModalOpen={LoginModalOpen} setLoginModalOpen={setLoginModalOpen} />
+          </Modal>
+          <Modal modalOpen={modalOpen}>
+            <SignUp RegModalOpen={RegModalOpen} setRegModalOpen={setRegModalOpen} />
+          </Modal>
+          <h1 className={styles.headline}>
+            <NavLink className={styles.homeLink} to={routes.HOME}>
+              Game Store
+            </NavLink>
+          </h1>
+          <div className={styles.nav}>
+            <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+              Home
+            </NavLink>
+            <div
+              className={
+                splitLocation[1] === "products"
+                  ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
+                  : `${styles.navItem} ,  ${styles.products}`
+              }
+            >
+              <div className={styles.link}>
+                <NavLink to={routes.PRODUCTS} className={styles.linkItem}>
+                  Products
+                </NavLink>
               </div>
-
-              <NavLink to={routes.ABOUT} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
-                About
-              </NavLink>
-
-              <NavLink to={routes.PROFILE} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
-                {user.firstName}
-              </NavLink>
-
-              <div className={styles.navItem}>
-                <button type="button" className={styles.navItemBtn}>
-                  Cart: 0
-                </button>
-              </div>
-
-              <div className={styles.navItem}>
-                <button type="button" onClick={logOut} className={styles.navItemBtn}>
-                  Logout
-                </button>
+              <div className={styles.dropdownWrapper}>
+                <ul className={styles.dropdown}>
+                  {categories.map((category: ICategory) => (
+                    <NavLink
+                      key={category.id}
+                      to={category.url}
+                      onClick={() => {
+                        window.location.href = category.url;
+                      }}
+                      className={({ isActive }) =>
+                        isActive ? `${styles.activeDropdownItem}` : `${styles.dropdownItem}`
+                      }
+                    >
+                      {category.name}
+                    </NavLink>
+                  ))}
+                </ul>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className={styles.header}>
-            <Modal modalOpen={modalOpen}>
-              <SignIn LoginModalOpen={LoginModalOpen} setLoginModalOpen={setLoginModalOpen} />
-            </Modal>
-            <Modal modalOpen={modalOpen}>
-              <SignUp RegModalOpen={RegModalOpen} setRegModalOpen={setRegModalOpen} />
-            </Modal>
-            <h1 className={styles.headline}>
-              <NavLink className={styles.homeLink} to={routes.HOME}>
-                Game Store
-              </NavLink>
-            </h1>
-            <div className={styles.nav}>
-              <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
-                Home
-              </NavLink>
-              <div
-                className={
-                  splitLocation[1] === "products"
-                    ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
-                    : `${styles.navItem} ,  ${styles.products}`
-                }
-              >
-                <div className={styles.link}>
-                  <NavLink onClick={openLoginModal} to="/" className={styles.linkItem}>
-                    Products
-                  </NavLink>
-                </div>
-                <div className={styles.dropdownWrapper}>
-                  <ul className={styles.dropdown}>
-                    {categories.map((category: ICategory) => (
-                      <NavLink
-                        key={category.id}
-                        to="/"
-                        onClick={() => {
-                          openLoginModal();
-                        }}
-                        className={styles.dropdownItem}
-                      >
-                        {category.name}
-                      </NavLink>
-                    ))}
-                  </ul>
-                </div>
-              </div>
 
-              <NavLink onClick={openLoginModal} to="/" className={styles.navItem}>
-                About
-              </NavLink>
+            <NavLink to={routes.ABOUT} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+              About
+            </NavLink>
 
-              <div className={styles.navItem}>
-                <button type="button" onClick={openLoginModal} className={styles.navItemBtn}>
-                  Sign In
-                </button>
-              </div>
+            <NavLink to={routes.PROFILE} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+              {user.firstName}
+            </NavLink>
 
-              <div className={styles.navItem}>
-                <button type="button" onClick={openRegModal} className={styles.navItemBtn}>
-                  Sign Up
-                </button>
-              </div>
+            <div className={styles.navItem}>
+              <button type="button" className={styles.navItemBtn}>
+                Cart: 0
+              </button>
+            </div>
+
+            <div className={styles.navItem}>
+              <button type="button" onClick={logOut} className={styles.navItemBtn}>
+                Logout
+              </button>
             </div>
           </div>
-        )
-      }
-    </UserContext.Consumer>
+        </div>
+      ) : (
+        <div className={styles.header}>
+          <Modal modalOpen={modalOpen}>
+            <SignIn LoginModalOpen={LoginModalOpen} setLoginModalOpen={setLoginModalOpen} />
+          </Modal>
+          <Modal modalOpen={modalOpen}>
+            <SignUp RegModalOpen={RegModalOpen} setRegModalOpen={setRegModalOpen} />
+          </Modal>
+          <h1 className={styles.headline}>
+            <NavLink className={styles.homeLink} to={routes.HOME}>
+              Game Store
+            </NavLink>
+          </h1>
+          <div className={styles.nav}>
+            <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+              Home
+            </NavLink>
+            <div
+              className={
+                splitLocation[1] === "products"
+                  ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
+                  : `${styles.navItem} ,  ${styles.products}`
+              }
+            >
+              <div className={styles.link}>
+                <NavLink onClick={openLoginModal} to="/" className={styles.linkItem}>
+                  Products
+                </NavLink>
+              </div>
+              <div className={styles.dropdownWrapper}>
+                <ul className={styles.dropdown}>
+                  {categories.map((category: ICategory) => (
+                    <NavLink key={category.id} to="/" onClick={openLoginModal} className={styles.dropdownItem}>
+                      {category.name}
+                    </NavLink>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <NavLink onClick={openLoginModal} to="/" className={styles.navItem}>
+              About
+            </NavLink>
+
+            <div className={styles.navItem}>
+              <button type="button" onClick={openLoginModal} className={styles.navItemBtn}>
+                Sign In
+              </button>
+            </div>
+
+            <div className={styles.navItem}>
+              <button type="button" onClick={openRegModal} className={styles.navItemBtn}>
+                Sign Up
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

@@ -10,17 +10,7 @@ function Profile() {
     setUser(JSON.parse(userData as string));
   }, []);
 
-  return (
-    <UserContext.Consumer>
-      {(value) =>
-        value[0] ? (
-          <div className={styles.profileWrapper}>
-            <h3>Welcome, {user.firstName}</h3>
-          </div>
-        ) : null
-      }
-    </UserContext.Consumer>
-  );
+  return <div className={styles.profileWrapper}>{user ? <h3>Welcome, {user.firstName}</h3> : null}</div>;
 }
 
 export default Profile;

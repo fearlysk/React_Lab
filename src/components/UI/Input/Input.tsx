@@ -15,13 +15,7 @@ function Input({ register, error, label, id, errorMessage, ...inputProps }: Inpu
     <div className={styles.inputWrapper}>
       <label className={styles.inputLabel} htmlFor={id}>
         {label}
-        <input
-          className={styles.textInput}
-          placeholder={label}
-          {...register(id, { required: true })}
-          id={id}
-          {...inputProps}
-        />
+        <input className={styles.textInput} placeholder={label} {...register(id, { required: true })} {...inputProps} />
         {error && <p className={styles.errorMessage}>{errorMessage}</p>}
       </label>
     </div>

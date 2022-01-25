@@ -1,17 +1,10 @@
 import { useForm } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import IUserData from "../../../../interfaces/IUserData";
 import Input from "../../Input/Input";
 import styles from "./UserAuth.module.scss";
 import signUp from "../../../../api/auth/signUp";
-
-const validationSchema = yup.object().shape({
-  firstName: yup.string().min(3).required(),
-  lastName: yup.string().min(3).required(),
-  email: yup.string().email().required(),
-  password: yup.string().min(4).required(),
-});
+import { SignUpValidationSchema } from "../../../../utils/schemas";
 
 type Props = {
   RegModalOpen: boolean;
@@ -26,7 +19,7 @@ function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
     formState: { errors },
   } = useForm<IUserData>({
     mode: "onBlur",
-    resolver: yupResolver(validationSchema),
+    resolver: yupResolver(SignUpValidationSchema),
   });
 
   const formSubmitHandler = (uData: IUserData) => {
