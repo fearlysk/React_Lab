@@ -1,5 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { useLocation, NavLink } from "react-router-dom";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import routes from "../../constants/routes";
 import styles from "./Header.module.scss";
 import ICategory from "@/interfaces/ICategory";
@@ -7,7 +8,8 @@ import { getCategories } from "../../api/categories";
 import Modal from "../UI/Modals/Modal";
 import SignIn from "../UI/Modals/ModalContent/SignIn";
 import SignUp from "../UI/Modals/ModalContent/SignUp";
-import { UserContext } from "../../utils/UserContext";
+import { selectUser, logout } from "../../redux/userSlice";
+import IUserData from "@/interfaces/IUserData";
 
 function Header() {
   const location = useLocation();
@@ -20,12 +22,12 @@ function Header() {
   const [LoginModalOpen, setLoginModalOpen] = useState(false);
   const [RegModalOpen, setRegModalOpen] = useState(false);
 
-  const [user, setUser] = useContext(UserContext);
-  const userData = localStorage.getItem("user-data");
+  const user: IUserData = useAppSelector(selectUser);
+  const dispatch = useAppDispatch();
+  const isUserLoggedIn = Object.keys(user).length;
 
   useEffect(() => {
     getCategories().then((data) => setCategories(data));
-    setUser(JSON.parse(userData as string));
   }, []);
 
   const openLoginModal = () => {
@@ -39,14 +41,13 @@ function Header() {
     setRegModalOpen(true);
   };
   const logOut = () => {
-    setUser({});
-    localStorage.clear();
+    dispatch(logout());
     window.location.replace("/");
   };
 
   return (
     <div>
-      {user ? (
+      {isUserLoggedIn ? (
         <div className={styles.header}>
           <Modal modalOpen={modalOpen}>
             <SignIn LoginModalOpen={LoginModalOpen} setLoginModalOpen={setLoginModalOpen} />

@@ -1,5 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from "../../redux/hooks";
 import ProductsCard from "../Products/ProductsCard/ProductsCard";
 import styles from "./Home.module.scss";
 import IProduct from "@/interfaces/IProduct";
@@ -9,7 +10,7 @@ import { getCategories } from "../../api/categories";
 import settlePromises from "../../utils/settlePromises";
 import Modal from "../../components/UI/Modals/Modal";
 import SignIn from "../../components/UI/Modals/ModalContent/SignIn";
-import { UserContext } from "../../utils/UserContext";
+import { selectUser } from "../../redux/userSlice";
 
 function Home() {
   const [value, setValue] = useState("");
@@ -19,13 +20,12 @@ function Home() {
   const [modalOpen, setModalOpen] = useState(false);
   const [LoginModalOpen, setLoginModalOpen] = useState(false);
 
-  const [user, setUser] = useContext(UserContext);
-  const userData = localStorage.getItem("user-data");
+  const user = useAppSelector(selectUser);
+  const isUserLoggedIn = Object.keys(user).length;
 
   const promises = [getProducts(), getCategories()];
 
   useEffect(() => {
-    setUser(JSON.parse(userData as string));
     settlePromises(promises).then((data) => {
       setProducts(data[0] as never);
       setCategories(data[1] as never);
@@ -75,13 +75,12 @@ function Home() {
         <div className={styles.categories}>
           {categories.map((category: ICategory) => (
             <div key={category.id} className={styles.categoriesItem}>
-              {user && (
+              {isUserLoggedIn ? (
                 <Link className={styles.linkItem} to={category.url}>
                   <img src={category.logo} className={styles.categoriesItemLogo} alt="Not found" />
                   <h3 className={styles.categoriesItemTitle}>{category.name}</h3>
                 </Link>
-              )}
-              {!user && (
+              ) : (
                 <Link onClick={openLoginModal} className={styles.linkItem} to="/">
                   <img src={category.logo} className={styles.categoriesItemLogo} alt="Not found" />
                   <h3 className={styles.categoriesItemTitle}>{category.name}</h3>

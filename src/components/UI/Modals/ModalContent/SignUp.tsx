@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { login } from "../../../../redux/userSlice";
 import IUserData from "../../../../interfaces/IUserData";
 import Input from "../../Input/Input";
 import styles from "./UserAuth.module.scss";
@@ -22,6 +24,8 @@ function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
     resolver: yupResolver(SignUpValidationSchema),
   });
 
+  const dispatch = useAppDispatch();
+
   const formSubmitHandler = (uData: IUserData) => {
     const userData = {
       firstName: uData.firstName,
@@ -32,7 +36,7 @@ function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
 
     signUp(userData).then((data) => {
       if (data !== undefined) {
-        localStorage.setItem("user-data", JSON.stringify(data));
+        dispatch(login(data));
         window.location.reload();
       }
     });

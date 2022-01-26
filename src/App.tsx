@@ -7,31 +7,28 @@ import About from "./pages/About/About";
 import Profile from "./pages/Profile/Profile";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
-import UserProvider from "./utils/UserContext";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 function App() {
   return (
     <div className="app">
-      <UserProvider>
-        <Header />
-        <div className="app__content">
-          <ErrorBoundary>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route element={<ProtectedRoutes />}>
-                <Route path="/products" element={<Products />}>
-                  <Route path=":category" element={<Products />} />
-                </Route>
-                <Route path="/about" element={<About />} />
-                <Route path="/profile" element={<Profile />} />
+      <Header />
+      <div className="app__content">
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path="/products" element={<Products />}>
+                <Route path=":category" element={<Products />} />
               </Route>
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </ErrorBoundary>
-        </div>
-        <Footer />
-      </UserProvider>
+              <Route path="/about" element={<About />} />
+              <Route path="/profile" element={<Profile />} />
+            </Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </ErrorBoundary>
+      </div>
+      <Footer />
     </div>
   );
 }

@@ -1,16 +1,13 @@
-import { useContext, useEffect } from "react";
-import { UserContext } from "../../utils/UserContext";
+import IUserData from "@/interfaces/IUserData";
+import { useAppSelector } from "../../redux/hooks";
+import { selectUser } from "../../redux/userSlice";
 import styles from "./Profile.module.scss";
 
 function Profile() {
-  const [user, setUser] = useContext(UserContext);
-  const userData = localStorage.getItem("user-data");
+  const user: IUserData = useAppSelector(selectUser);
+  const isUserLoggedIn = Object.keys(user).length;
 
-  useEffect(() => {
-    setUser(JSON.parse(userData as string));
-  }, []);
-
-  return <div className={styles.profileWrapper}>{user ? <h3>Welcome, {user.firstName}</h3> : null}</div>;
+  return <div className={styles.profileWrapper}>{isUserLoggedIn ? <h3>Welcome, {user.firstName}</h3> : null}</div>;
 }
 
 export default Profile;
