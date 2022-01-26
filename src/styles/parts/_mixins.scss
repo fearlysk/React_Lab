@@ -6,3 +6,7 @@
   display: flex;
   justify-content: center;
 }
+@mixin flex-around {
+  display: flex;
+  justify-content: space-around;
+}
