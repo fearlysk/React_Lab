@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "./store";
 
 interface userState {
-  userData: object;
+  userData: object | null;
 }
 
 const initialState: userState = {
-  userData: {},
+  userData: null,
 };
 
 export const userSlice = createSlice({
@@ -19,7 +19,7 @@ export const userSlice = createSlice({
     },
     logout: (state) => {
       const userState = state;
-      userState.userData = {};
+      userState.userData = null;
     },
   },
 });

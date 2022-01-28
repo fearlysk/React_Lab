@@ -22,9 +22,8 @@ function Header() {
   const [LoginModalOpen, setLoginModalOpen] = useState(false);
   const [RegModalOpen, setRegModalOpen] = useState(false);
 
-  const user: IUserData = useAppSelector(selectUser);
+  const user: IUserData | null = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
-  const isUserLoggedIn = Object.keys(user).length;
 
   useEffect(() => {
     getCategories().then((data) => setCategories(data));
@@ -47,7 +46,7 @@ function Header() {
 
   return (
     <div>
-      {isUserLoggedIn ? (
+      {user ? (
         <div className={styles.header}>
           <Modal modalOpen={modalOpen}>
             <SignIn LoginModalOpen={LoginModalOpen} setLoginModalOpen={setLoginModalOpen} />

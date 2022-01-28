@@ -4,10 +4,9 @@ import { selectUser } from "../../redux/userSlice";
 import styles from "./Profile.module.scss";
 
 function Profile() {
-  const user: IUserData = useAppSelector(selectUser);
-  const isUserLoggedIn = Object.keys(user).length;
+  const user: IUserData | null = useAppSelector(selectUser);
 
-  return <div className={styles.profileWrapper}>{isUserLoggedIn ? <h3>Welcome, {user.firstName}</h3> : null}</div>;
+  return <div className={styles.profileWrapper}>{user ? <h3>Welcome, {user.firstName}</h3> : null}</div>;
 }
 
 export default Profile;

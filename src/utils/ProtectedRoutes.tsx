@@ -4,7 +4,7 @@ import { selectUser } from "../redux/userSlice";
 
 const useAuth = () => {
   const user = useSelector(selectUser);
-  return Object.keys(user).length;
+  return user;
 };
 
 function ProtectedRoutes() {

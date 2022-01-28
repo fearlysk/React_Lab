@@ -21,7 +21,6 @@ function Home() {
   const [LoginModalOpen, setLoginModalOpen] = useState(false);
 
   const user = useAppSelector(selectUser);
-  const isUserLoggedIn = Object.keys(user).length;
 
   const promises = [getProducts(), getCategories()];
 
@@ -75,7 +74,7 @@ function Home() {
         <div className={styles.categories}>
           {categories.map((category: ICategory) => (
             <div key={category.id} className={styles.categoriesItem}>
-              {isUserLoggedIn ? (
+              {user ? (
                 <Link className={styles.linkItem} to={category.url}>
                   <img src={category.logo} className={styles.categoriesItemLogo} alt="Not found" />
                   <h3 className={styles.categoriesItemTitle}>{category.name}</h3>
