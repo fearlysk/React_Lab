@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useAppDispatch } from "../../../../redux/hooks";
+import { login } from "../../../../redux/userSlice";
 import IUserData from "../../../../interfaces/IUserData";
 import Input from "../../Input/Input";
 import styles from "./UserAuth.module.scss";
@@ -32,6 +34,8 @@ function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
     setModalOpen(false);
   };
 
+  const dispatch = useAppDispatch();
+
   const formSubmitHandler = (uData: IUserData) => {
     const userData = {
       email: uData.email,
@@ -40,7 +44,7 @@ function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
 
     signIn(userData).then((data) => {
       if (data[0] !== undefined) {
-        localStorage.setItem("user-data", JSON.stringify(data[0]));
+        dispatch(login(data[0]));
         window.location.reload();
       } else if (userData !== data[0]) {
         openModal();
