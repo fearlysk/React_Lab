@@ -22,7 +22,7 @@ function App() {
                 <Route path=":category" element={<Products />} />
               </Route>
               <Route path="/about" element={<About />} />
-              <Route path="/profile" element={<Profile />} />
+              <Route path="/profile/:id" element={<Profile />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
