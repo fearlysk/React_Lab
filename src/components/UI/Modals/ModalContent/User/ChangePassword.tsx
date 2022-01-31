@@ -46,10 +46,10 @@ function ChangePassword({ passwordModalOpen, setPasswordModalOpen }: Props) {
 
   const dispatch = useAppDispatch();
 
-  const setPassword = (value: string) => {
+  const updateUserInfo = (key: string, value: string) => {
     setUserData({
       ...userData,
-      password: value,
+      [key]: value,
     });
   };
 
@@ -97,7 +97,7 @@ function ChangePassword({ passwordModalOpen, setPasswordModalOpen }: Props) {
           label="Update password: "
           register={register}
           value={userData.password}
-          onChange={(e) => setPassword(e.target.value) as never}
+          onChange={(e) => updateUserInfo(e.target.name, e.target.value) as never}
           error={errors.password}
           errorMessage="Password must be at least 4 characters long!"
         />

@@ -45,10 +45,10 @@ function ChangeAvatar({ AvatarModalOpen, setAvatarModalOpen }: Props) {
 
   const dispatch = useAppDispatch();
 
-  const setAvatar = (value: string) => {
+  const updateUserInfo = (key: string, value: string) => {
     setUserData({
       ...userData,
-      avatar: value,
+      [key]: value,
     });
   };
 
@@ -103,7 +103,7 @@ function ChangeAvatar({ AvatarModalOpen, setAvatarModalOpen }: Props) {
           label="New avatar url: "
           register={register}
           value={userData.avatar}
-          onChange={(e) => setAvatar(e.target.value) as never}
+          onChange={(e) => updateUserInfo(e.target.name, e.target.value) as never}
           error={errors.avatar}
           errorMessage="Invalid url!"
         />

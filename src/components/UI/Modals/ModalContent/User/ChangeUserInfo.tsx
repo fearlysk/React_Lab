@@ -45,22 +45,10 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
 
   const dispatch = useAppDispatch();
 
-  const setFirstName = (value: string) => {
+  const updateUserInfo = (key: string, value: string) => {
     setUserData({
       ...userData,
-      firstName: value,
-    });
-  };
-  const setLastName = (value: string) => {
-    setUserData({
-      ...userData,
-      lastName: value,
-    });
-  };
-  const setEmail = (value: string) => {
-    setUserData({
-      ...userData,
-      email: value,
+      [key]: value,
     });
   };
 
@@ -108,7 +96,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           label="Update first name: "
           register={register}
           value={userData.firstName}
-          onChange={(e) => setFirstName(e.target.value) as never}
+          onChange={(e) => updateUserInfo(e.target.name, e.target.value) as never}
           error={errors.firstName}
           errorMessage="First name must be at least 3 characters long!"
         />
@@ -119,7 +107,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           label="Update last name: "
           register={register}
           value={userData.lastName}
-          onChange={(e) => setLastName(e.target.value) as never}
+          onChange={(e) => updateUserInfo(e.target.name, e.target.value) as never}
           error={errors.lastName}
           errorMessage="Last name must be at least 3 characters long!"
         />
@@ -130,7 +118,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           label="Update email: "
           register={register}
           value={userData.email}
-          onChange={(e) => setEmail(e.target.value) as never}
+          onChange={(e) => updateUserInfo(e.target.name, e.target.value) as never}
           error={errors.email}
           errorMessage="Invalid email!"
         />
