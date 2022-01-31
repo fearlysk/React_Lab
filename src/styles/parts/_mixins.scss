@@ -10,3 +10,7 @@
   display: flex;
   justify-content: space-around;
 }
+@mixin flex-evenly {
+  display: flex;
+  justify-content: space-evenly;
+}

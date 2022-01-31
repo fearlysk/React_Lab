@@ -23,6 +23,7 @@ function Header() {
   const [RegModalOpen, setRegModalOpen] = useState(false);
 
   const user: IUserData | null = useAppSelector(selectUser);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -99,7 +100,19 @@ function Header() {
               About
             </NavLink>
 
-            <NavLink to={routes.PROFILE} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+            <NavLink
+              to={`${routes.PROFILE}/${user.id}`}
+              className={({ isActive }) => (isActive ? styles.active : styles.navItem)}
+            >
+              {user.avatar ? (
+                <div className={styles.avatarImageWrapper}>
+                  <img src={user.avatar} className={styles.avatarImage} key={user.avatar} alt="No avatar found" />
+                </div>
+              ) : (
+                <div className={styles.noAvatar}>
+                  <h3 className={styles.noAvatarText}>NO AVATAR</h3>
+                </div>
+              )}
               {user.firstName}
             </NavLink>
 

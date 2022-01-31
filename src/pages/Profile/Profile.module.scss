@@ -1,5 +1,68 @@
 @import "../../styles/parts/colors";
+@import "../../styles/parts/mixins";
 
 .profileWrapper {
   color: $white;
+}
+.header {
+  border-bottom: 2px solid $white;
+  padding: 5px;
+  width: 90%;
+  margin: 10px auto;
+}
+.avatar {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  border-radius: 18px;
+}
+.avatarImage {
+  height: auto;
+  max-width: 200px;
+  border-radius: 20px;
+}
+.noAvatar {
+  height: auto;
+  background-color: $lightgray;
+  text-align: center;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  max-width: 200px;
+  border-radius: 18px;
+}
+.noAvatarText {
+  margin: 0;
+  padding: 5px;
+  border: 1px solid $white;
+}
+.btn {
+  margin: 10px;
+  padding: 10px 15px;
+  border: 0;
+  background-color: $purple;
+  color: $white;
+  border-radius: 10px;
+}
+.userInfoButtons {
+  display: flex;
+  flex-direction: column;
+}
+.userInfoHeadline {
+  border-bottom: 1px solid $white;
+  padding: 5px;
+  margin: 0 0 15px 0;
+}
+.userInfoItem {
+  color: $purple;
+  margin: 5px;
+  border-bottom: 1px solid $purple;
+}
+.body {
+  margin-top: 30px;
+  @include flex-evenly;
 }
