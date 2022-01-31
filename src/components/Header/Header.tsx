@@ -10,7 +10,6 @@ import SignIn from "../UI/Modals/ModalContent/SignIn";
 import SignUp from "../UI/Modals/ModalContent/SignUp";
 import { selectUser, logout } from "../../redux/userSlice";
 import IUserData from "@/interfaces/IUserData";
-import { getUserData } from "../../api/user/user";
 
 function Header() {
   const location = useLocation();
@@ -24,20 +23,11 @@ function Header() {
   const [RegModalOpen, setRegModalOpen] = useState(false);
 
   const user: IUserData | null = useAppSelector(selectUser);
-  const id = user?.id;
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [avatar, setAvatar] = useState(user?.avatar);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     getCategories().then((data) => setCategories(data));
-    if (id) {
-      getUserData(id).then((resp: IUserData) => {
-        setFirstName(resp.firstName);
-        setAvatar(resp.avatar);
-      });
-    }
   }, []);
 
   const openLoginModal = () => {
@@ -114,16 +104,16 @@ function Header() {
               to={`${routes.PROFILE}/${user.id}`}
               className={({ isActive }) => (isActive ? styles.active : styles.navItem)}
             >
-              {avatar ? (
+              {user.avatar ? (
                 <div className={styles.avatarImageWrapper}>
-                  <img src={avatar} className={styles.avatarImage} key={avatar} alt="No avatar found" />
+                  <img src={user.avatar} className={styles.avatarImage} key={user.avatar} alt="No avatar found" />
                 </div>
               ) : (
                 <div className={styles.noAvatar}>
                   <h3 className={styles.noAvatarText}>NO AVATAR</h3>
                 </div>
               )}
-              {firstName}
+              {user.firstName}
             </NavLink>
 
             <div className={styles.navItem}>

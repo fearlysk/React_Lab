@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
@@ -8,14 +9,16 @@ import { selectUser, updateUserData } from "../../../../../redux/userSlice";
 import styles from "../UserAuth.module.scss";
 import IUserData from "../../../../../interfaces/IUserData";
 import { ChangeUserInfoValidationSchema } from "../../../../../utils/schemas";
-import { getUserData, changeUserData } from "../../../../../api/user/user";
+import { changeUserData } from "../../../../../api/user/user";
 
-type Props = {
+interface Props {
   userInfoModalOpen: boolean;
   setUserInfoModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
 function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,47 +35,48 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
 
   const user: IUserData | null = useAppSelector(selectUser);
   const id = user?.id;
-  const [avatar, setAvatar] = useState(user?.avatar);
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState(user?.password);
+  const [userData, setUserData] = useState({
+    avatar: user?.avatar,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    email: user?.email,
+    password: user?.password,
+  });
 
   const dispatch = useAppDispatch();
 
-  function getUser() {
-    getUserData(id).then((resp: IUserData) => {
-      setAvatar(resp.avatar);
-      setFirstName(resp.firstName);
-      setLastName(resp.lastName);
-      setEmail(resp.email);
-      setPassword(resp.password);
+  const setFirstName = (value: string) => {
+    setUserData({
+      ...userData,
+      firstName: value,
     });
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  };
+  const setLastName = (value: string) => {
+    setUserData({
+      ...userData,
+      lastName: value,
+    });
+  };
+  const setEmail = (value: string) => {
+    setUserData({
+      ...userData,
+      email: value,
+    });
+  };
 
   const formSubmitHandler = () => {
     const item = {
-      avatar,
-      firstName,
-      lastName,
-      email,
-      password,
+      ...userData,
     };
 
     changeUserData(id, item).then((resp: IUserData) => {
       if (resp) {
         dispatch(updateUserData(resp));
-        getUser();
+        navigate(0);
       } else {
         setModalOpen(true);
       }
     });
-
-    window.location.reload();
   };
 
   if (!userInfoModalOpen) return null;
@@ -103,7 +107,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           name="firstName"
           label="Update first name: "
           register={register}
-          value={firstName}
+          value={userData.firstName}
           onChange={(e) => setFirstName(e.target.value) as never}
           error={errors.firstName}
           errorMessage="First name must be at least 3 characters long!"
@@ -114,7 +118,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           name="lastName"
           label="Update last name: "
           register={register}
-          value={lastName}
+          value={userData.lastName}
           onChange={(e) => setLastName(e.target.value) as never}
           error={errors.lastName}
           errorMessage="Last name must be at least 3 characters long!"
@@ -125,7 +129,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           name="email"
           label="Update email: "
           register={register}
-          value={email}
+          value={userData.email}
           onChange={(e) => setEmail(e.target.value) as never}
           error={errors.email}
           errorMessage="Invalid email!"

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
@@ -8,14 +9,16 @@ import { selectUser, updateUserData } from "../../../../../redux/userSlice";
 import styles from "../UserAuth.module.scss";
 import IUserData from "../../../../../interfaces/IUserData";
 import { passwordConfirmValidationSchema } from "../../../../../utils/schemas";
-import { getUserData, changeUserData } from "../../../../../api/user/user";
+import { changeUserData } from "../../../../../api/user/user";
 
-type Props = {
+interface Props {
   passwordModalOpen: boolean;
   setPasswordModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
 function ChangePassword({ passwordModalOpen, setPasswordModalOpen }: Props) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,48 +35,37 @@ function ChangePassword({ passwordModalOpen, setPasswordModalOpen }: Props) {
 
   const user: IUserData | null = useAppSelector(selectUser);
   const id = user?.id;
-  const [avatar, setAvatar] = useState(user?.avatar);
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState(user?.password);
+  const [userData, setUserData] = useState({
+    avatar: user?.avatar,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    email: user?.email,
+    password: user?.password,
+  });
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useAppDispatch();
 
-  function getUser() {
-    getUserData(id).then((resp: IUserData) => {
-      setAvatar(resp.avatar);
-      setFirstName(resp.firstName);
-      setLastName(resp.lastName);
-      setEmail(resp.email);
-      setPassword(resp.password);
+  const setPassword = (value: string) => {
+    setUserData({
+      ...userData,
+      password: value,
     });
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  };
 
   const formSubmitHandler = () => {
     const item = {
-      avatar,
-      firstName,
-      lastName,
-      email,
-      password,
+      ...userData,
     };
 
     changeUserData(id, item).then((resp: IUserData) => {
       if (resp) {
         dispatch(updateUserData(resp));
-        getUser();
+        navigate(0);
       } else {
         setModalOpen(true);
       }
     });
-
-    window.location.reload();
   };
 
   if (!passwordModalOpen) return null;
@@ -104,7 +96,7 @@ function ChangePassword({ passwordModalOpen, setPasswordModalOpen }: Props) {
           name="password"
           label="Update password: "
           register={register}
-          value={password}
+          value={userData.password}
           onChange={(e) => setPassword(e.target.value) as never}
           error={errors.password}
           errorMessage="Password must be at least 4 characters long!"

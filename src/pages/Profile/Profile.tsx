@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Modal from "../../components/UI/Modals/Modal";
 import IUserData from "@/interfaces/IUserData";
 import { useAppSelector } from "../../redux/hooks";
@@ -7,28 +7,9 @@ import styles from "./Profile.module.scss";
 import ChangeAvatar from "../../components/UI/Modals/ModalContent/User/ChangeAvatar";
 import ChangeUserInfo from "../../components/UI/Modals/ModalContent/User/ChangeUserInfo";
 import ChangePassword from "../../components/UI/Modals/ModalContent/User/ChangePassword";
-import { getUserData } from "../../api/user/user";
 
 function Profile() {
   const user: IUserData | null = useAppSelector(selectUser);
-  const id = user?.id;
-  const [avatar, setAvatar] = useState(user?.avatar);
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [email, setEmail] = useState(user?.email);
-
-  function getUser() {
-    getUserData(id).then((resp: IUserData) => {
-      setAvatar(resp.avatar);
-      setFirstName(resp.firstName);
-      setLastName(resp.lastName);
-      setEmail(resp.email);
-    });
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
 
   const [avatarModalOpen, setAvatarModalOpen] = useState(false);
   const [userInfoModalOpen, setUserInfoModalOpen] = useState(false);
@@ -68,8 +49,8 @@ function Profile() {
           </div>
           <div className={styles.body}>
             <div className={styles.avatar}>
-              {avatar ? (
-                <img src={avatar} className={styles.avatarImage} key={avatar} alt="No avatar found" />
+              {user.avatar ? (
+                <img src={user.avatar} className={styles.avatarImage} key={user.avatar} alt="No avatar found" />
               ) : (
                 <div className={styles.noAvatar}>
                   <h3 className={styles.noAvatarText}>NO AVATAR</h3>
@@ -84,13 +65,13 @@ function Profile() {
             <div className={styles.userInfo}>
               <h1 className={styles.userInfoHeadline}>Info</h1>
               <h4>
-                First name: <span className={styles.userInfoItem}>{firstName}</span>
+                First name: <span className={styles.userInfoItem}>{user.firstName}</span>
               </h4>
               <h4>
-                Last name: <span className={styles.userInfoItem}>{lastName}</span>
+                Last name: <span className={styles.userInfoItem}>{user.lastName}</span>
               </h4>
               <h4>
-                Email: <span className={styles.userInfoItem}>{email}</span>
+                Email: <span className={styles.userInfoItem}>{user.email}</span>
               </h4>
             </div>
             <div className={styles.userInfoButtons}>

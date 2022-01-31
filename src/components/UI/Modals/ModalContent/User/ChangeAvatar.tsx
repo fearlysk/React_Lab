@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
@@ -8,14 +9,16 @@ import { selectUser, updateUserData } from "../../../../../redux/userSlice";
 import styles from "../UserAuth.module.scss";
 import IUserData from "../../../../../interfaces/IUserData";
 import { ChangeAvatarValidationSchema } from "../../../../../utils/schemas";
-import { getUserData, changeUserData } from "../../../../../api/user/user";
+import { changeUserData } from "../../../../../api/user/user";
 
-type Props = {
+interface Props {
   AvatarModalOpen: boolean;
   setAvatarModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
-};
+}
 
 function ChangeAvatar({ AvatarModalOpen, setAvatarModalOpen }: Props) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,51 +35,43 @@ function ChangeAvatar({ AvatarModalOpen, setAvatarModalOpen }: Props) {
 
   const user: IUserData | null = useAppSelector(selectUser);
   const id = user?.id;
-  const [avatar, setAvatar] = useState(user?.avatar);
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
-  const [email, setEmail] = useState(user?.email);
-  const [password, setPassword] = useState(user?.password);
+  const [userData, setUserData] = useState({
+    avatar: user?.avatar,
+    firstName: user?.firstName,
+    lastName: user?.lastName,
+    email: user?.email,
+    password: user?.password,
+  });
 
   const dispatch = useAppDispatch();
 
-  const clearAvatar = () => {
-    setAvatar("");
+  const setAvatar = (value: string) => {
+    setUserData({
+      ...userData,
+      avatar: value,
+    });
   };
 
-  function getUser() {
-    getUserData(id).then((resp: IUserData) => {
-      setAvatar(resp.avatar);
-      setFirstName(resp.firstName);
-      setLastName(resp.lastName);
-      setEmail(resp.email);
-      setPassword(resp.password);
+  const clearAvatar = () => {
+    setUserData({
+      ...userData,
+      avatar: "",
     });
-  }
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  };
 
   const formSubmitHandler = () => {
     const item = {
-      avatar,
-      firstName,
-      lastName,
-      email,
-      password,
+      ...userData,
     };
 
     changeUserData(id, item).then((resp: IUserData) => {
       if (resp) {
         dispatch(updateUserData(resp));
-        getUser();
+        navigate(0);
       } else {
         setModalOpen(true);
       }
     });
-
-    window.location.reload();
   };
 
   if (!AvatarModalOpen) return null;
@@ -107,7 +102,7 @@ function ChangeAvatar({ AvatarModalOpen, setAvatarModalOpen }: Props) {
           name="avatar"
           label="New avatar url: "
           register={register}
-          value={avatar}
+          value={userData.avatar}
           onChange={(e) => setAvatar(e.target.value) as never}
           error={errors.avatar}
           errorMessage="Invalid url!"
