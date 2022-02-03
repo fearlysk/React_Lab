@@ -1,18 +1,8 @@
 import { Rating } from "react-simple-star-rating";
+import IProduct from "@/interfaces/IProduct";
 import styles from "./ProductsCard.module.scss";
 
-interface ProductsCardProps {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  genre: string;
-  rating: number;
-  category: string;
-  description: string;
-}
-
-function ProductsCard(product: ProductsCardProps) {
+function ProductsCard(product: IProduct) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.productCard}>

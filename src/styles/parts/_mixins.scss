@@ -14,3 +14,11 @@
   display: flex;
   justify-content: space-evenly;
 }
+@mixin flex-display-column {
+  display: flex;
+  flex-direction: column;
+}
+@mixin flex-display-row {
+  display: flex;
+  flex-direction: row;
+}
