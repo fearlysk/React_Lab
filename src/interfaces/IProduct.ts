@@ -4,6 +4,7 @@ export default interface IProduct {
   title: string;
   price: number;
   genre: string;
+  age: number;
   rating: number;
   category: string;
   description: string;

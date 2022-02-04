@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import classNames from "classnames";
 import { useAppSelector } from "../../redux/hooks";
 import ProductsCard from "../Products/ProductsCard/ProductsCard";
 import styles from "./Home.module.scss";
@@ -36,11 +37,6 @@ function Home() {
     setLoginModalOpen(true);
   };
 
-  const ProductsClasses = [styles.productsWrapper];
-  if (value === "") {
-    ProductsClasses.push(styles.hidden);
-  }
-
   const filteredProducts = products.filter((product: IProduct) =>
     product.title.toLowerCase().includes(value.toLowerCase())
   );
@@ -59,7 +55,7 @@ function Home() {
           onChange={(event) => setValue(event.target.value)}
         />
       </div>
-      <div className={ProductsClasses.join(" ")}>
+      <div className={classNames(styles.productsWrapper, { [styles.hidden]: !value })}>
         <h2 className={styles.headline}>Products</h2>
         <div className={styles.productsList}>
           {filteredProducts.map((product: IProduct) => (

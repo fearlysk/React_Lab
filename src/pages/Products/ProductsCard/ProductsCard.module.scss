@@ -1,14 +1,14 @@
-@import "../../../styles/parts/_colors.scss";
+@import "../../../styles/parts/colors";
+@import "../../../styles/parts/mixins";
 
 .wrapper {
+  @include flex-display-row;
+  flex-wrap: wrap;
   margin: 25px 25px;
   z-index: 2;
   box-shadow: 0px 0px 18px 9px $purple;
   border-radius: 4px;
   background-color: $darkbg;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 .productCard {
   background-color: $darkbg;
@@ -25,9 +25,8 @@
   border-radius: 4px;
 }
 .productPlatforms {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  @include flex-display-row;
+  @include flex-center;
 }
 .productPlatformsItem {
   border: 1px solid $purple;
@@ -49,6 +48,7 @@
   transform: perspective(600px) rotateY(180deg);
   background-color: $graybg;
   padding: 30px 0;
+  height: 90%;
 }
 .productCard:hover > .front {
   transform: perspective(600px) rotateY(-180deg);
