@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import classNames from "classnames";
 import ProductsCard from "./ProductsCard/ProductsCard";
 import Loader from "../../components/UI/Loader/Loader";
 import styles from "./Products.module.scss";
@@ -7,6 +8,7 @@ import IProduct from "@/interfaces/IProduct";
 import { getProducts } from "../../api/products";
 import settlePromises from "../../utils/settlePromises";
 import objectToGetParams from "../../utils/urls";
+import sortingOrders from "../../enums/sorting";
 
 function Products() {
   const { category } = useParams();
@@ -20,10 +22,6 @@ function Products() {
   const query = objectToGetParams({ category });
   const promises = [getProducts(), getProducts(query)];
 
-  const ProductsClasses = [styles.productsWrapper];
-  if (value === "") {
-    ProductsClasses.push(styles.hidden);
-  }
   const filteredProducts = products.filter((product: IProduct) =>
     product.title.toLowerCase().includes(value.toLowerCase())
   );
@@ -33,34 +31,17 @@ function Products() {
     setTimeout(() => setIsLoading(false), 500);
   };
 
-  const sortByPrice = (order: string) => {
+  const sortProducts = (option: never, order: string) => {
     setLoading();
-    if (order === "asc") {
-      const sortedByAsc = products.sort((a: IProduct, b: IProduct) => a.price - b.price).slice();
-      const sortedCategoryByAsc = categoryProducts.sort((a: IProduct, b: IProduct) => a.price - b.price).slice();
+    if (order === sortingOrders.ASC) {
+      const sortedByAsc = products.sort((a: IProduct, b: IProduct) => a[option] - b[option]).slice();
+      const sortedCategoryByAsc = categoryProducts.sort((a: IProduct, b: IProduct) => a[option] - b[option]).slice();
 
       setProducts(sortedByAsc);
       setCategoryProducts(sortedCategoryByAsc);
-    } else if (order === "desc") {
-      const sortedByDesc = products.sort((a: IProduct, b: IProduct) => b.price - a.price).slice();
-      const sortedCategoryByDesc = categoryProducts.sort((a: IProduct, b: IProduct) => b.price - a.price).slice();
-
-      setProducts(sortedByDesc);
-      setCategoryProducts(sortedCategoryByDesc);
-    }
-  };
-
-  const sortByRating = (order: string) => {
-    setLoading();
-    if (order === "asc") {
-      const sortedByAsc = products.sort((a: IProduct, b: IProduct) => a.rating - b.rating).slice();
-      const sortedCategoryByAsc = categoryProducts.sort((a: IProduct, b: IProduct) => a.rating - b.rating).slice();
-
-      setProducts(sortedByAsc);
-      setCategoryProducts(sortedCategoryByAsc);
-    } else if (order === "desc") {
-      const sortedByDesc = products.sort((a: IProduct, b: IProduct) => b.rating - a.rating).slice();
-      const sortedCategoryByDesc = categoryProducts.sort((a: IProduct, b: IProduct) => b.rating - a.rating).slice();
+    } else if (order === sortingOrders.DESC) {
+      const sortedByDesc = products.sort((a: IProduct, b: IProduct) => b[option] - a[option]).slice();
+      const sortedCategoryByDesc = categoryProducts.sort((a: IProduct, b: IProduct) => b[option] - a[option]).slice();
 
       setProducts(sortedByDesc);
       setCategoryProducts(sortedCategoryByDesc);
@@ -130,19 +111,35 @@ function Products() {
           <h1 className={styles.headline}>Filter Products</h1>
           <div className={styles.filtrationItem}>
             <h2 className={styles.headline}>Price: </h2>
-            <button className={styles.filterOption} type="button" onClick={() => sortByPrice("asc")}>
+            <button
+              className={styles.filterOption}
+              type="button"
+              onClick={() => sortProducts("price" as never, sortingOrders.ASC)}
+            >
               ASC
             </button>
-            <button className={styles.filterOption} type="button" onClick={() => sortByPrice("desc")}>
+            <button
+              className={styles.filterOption}
+              type="button"
+              onClick={() => sortProducts("price" as never, sortingOrders.DESC)}
+            >
               DESC
             </button>
           </div>
           <div className={styles.filtrationItem}>
             <h2 className={styles.headline}>Rating: </h2>
-            <button className={styles.filterOption} type="button" onClick={() => sortByRating("asc")}>
+            <button
+              className={styles.filterOption}
+              type="button"
+              onClick={() => sortProducts("rating" as never, sortingOrders.ASC)}
+            >
               ASC
             </button>
-            <button className={styles.filterOption} type="button" onClick={() => sortByRating("desc")}>
+            <button
+              className={styles.filterOption}
+              type="button"
+              onClick={() => sortProducts("rating" as never, sortingOrders.DESC)}
+            >
               DESC
             </button>
           </div>
@@ -181,7 +178,7 @@ function Products() {
           </div>
         </div>
         <div className={styles.wrapper}>
-          <div className={ProductsClasses.join(" ")}>
+          <div className={classNames(styles.productsWrapper, { [styles.hidden]: !value })}>
             <h2 className={styles.headline}>Search: </h2>
             <div className={styles.productsList}>
               {filteredProducts.map((product: IProduct) => (

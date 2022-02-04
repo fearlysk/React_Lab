@@ -11,9 +11,8 @@
   margin: 10px auto;
 }
 .avatar {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+  @include flex-display-column;
+  @include flex-center;
   align-items: center;
   margin: 10px 0;
   border-radius: 18px;
@@ -24,13 +23,12 @@
   border-radius: 20px;
 }
 .noAvatar {
+  @include flex-center;
+  align-items: center;
   height: auto;
   background-color: $lightgray;
   text-align: center;
   padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   margin: 0;
   max-width: 200px;
   border-radius: 18px;
@@ -49,8 +47,7 @@
   border-radius: 10px;
 }
 .userInfoButtons {
-  display: flex;
-  flex-direction: column;
+  @include flex-display-column;
 }
 .userInfoHeadline {
   border-bottom: 1px solid $white;
