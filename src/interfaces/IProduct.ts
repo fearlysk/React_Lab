@@ -8,4 +8,5 @@ export default interface IProduct {
   rating: number;
   category: string;
   description: string;
+  quantity: number;
 }

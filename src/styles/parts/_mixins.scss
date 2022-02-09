@@ -14,6 +14,10 @@
   display: flex;
   justify-content: space-evenly;
 }
+@mixin flex-between {
+  display: flex;
+  justify-content: space-between;
+}
 @mixin flex-display-column {
   display: flex;
   flex-direction: column;

@@ -9,6 +9,7 @@ import Modal from "../UI/Modals/Modal";
 import SignIn from "../UI/Modals/ModalContent/SignIn";
 import SignUp from "../UI/Modals/ModalContent/SignUp";
 import { selectUser, logout } from "../../redux/userSlice";
+import { selectCartCounter } from "../../redux/cartSlice";
 import IUserData from "@/interfaces/IUserData";
 
 function Header() {
@@ -23,6 +24,7 @@ function Header() {
   const [RegModalOpen, setRegModalOpen] = useState(false);
 
   const user: IUserData | null = useAppSelector(selectUser);
+  const cartCounter: number = useAppSelector(selectCartCounter);
 
   const dispatch = useAppDispatch();
 
@@ -42,6 +44,7 @@ function Header() {
   };
   const logOut = () => {
     dispatch(logout());
+    window.location.replace("/products"); // to make logout on homepage
     window.location.replace("/");
   };
 
@@ -117,9 +120,11 @@ function Header() {
             </NavLink>
 
             <div className={styles.navItem}>
-              <button type="button" className={styles.navItemBtn}>
-                Cart: 0
-              </button>
+              <NavLink to={`${routes.CART}`}>
+                <button type="button" className={styles.navItemBtn}>
+                  Cart: {cartCounter}
+                </button>
+              </NavLink>
             </div>
 
             <div className={styles.navItem}>
