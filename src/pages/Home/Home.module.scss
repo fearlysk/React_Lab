@@ -47,9 +47,9 @@
   padding: 10px;
 }
 .categoriesItem {
-  @include flex-display-column;
+  @include flex-center;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
   max-width: 20%;
   margin: 20px;
   padding: 10px;
@@ -91,7 +91,8 @@
   border-bottom: 1px solid $white;
 }
 .productsWrapper {
-  @include flex-display-column;
+  display: flex;
+  flex-direction: column;
   width: 80%;
   margin: 10px auto;
   border: 1px solid $purple;
@@ -99,8 +100,8 @@
   background-color: $translucentdarkgray;
 }
 .productsList {
-  @include flex-display-row;
-  justify-content: center;
+  @include flex-center;
+  flex-direction: row;
   flex-wrap: wrap;
   padding: 0 0 25px 0;
 }

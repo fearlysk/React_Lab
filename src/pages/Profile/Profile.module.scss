@@ -11,8 +11,8 @@
   margin: 10px auto;
 }
 .avatar {
-  @include flex-display-column;
   @include flex-center;
+  flex-direction: column;
   align-items: center;
   margin: 10px 0;
   border-radius: 18px;
@@ -47,7 +47,8 @@
   border-radius: 10px;
 }
 .userInfoButtons {
-  @include flex-display-column;
+  display: flex;
+  flex-direction: column;
 }
 .userInfoHeadline {
   border-bottom: 1px solid $white;

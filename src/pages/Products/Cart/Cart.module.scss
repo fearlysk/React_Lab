@@ -1,0 +1,73 @@
+@import "../../../styles/parts/colors";
+@import "../../../styles/parts/mixins";
+
+.wrapper {
+  @include flex-center;
+}
+.cart {
+  @include flex-center;
+  flex-direction: column;
+  margin: 0 auto 5px;
+  text-align: center;
+  width: 60%;
+}
+.cartItem {
+  @include flex-between;
+  flex-direction: row;
+  align-items: center;
+  text-align: left;
+  width: 100%;
+  margin: 10px auto;
+  border: 1px solid $white;
+  border-radius: 5px;
+  padding: 5px;
+}
+.cartItemInfo {
+  width: 40%;
+}
+.cartItemInfoBtn {
+  margin: 0 15px;
+  padding: 10px;
+  background-color: $black;
+  color: $white;
+  border: 1px solid $purple;
+  transition: 0.3s;
+}
+.cartItemInfoBtn:hover {
+  background-color: $purple;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.cartItemInfoItem {
+  margin: 5px;
+}
+.cartItemInfoTotal {
+  width: 60%;
+}
+.totalPrice {
+  width: 20%;
+  margin: 10px auto;
+  padding: 5px;
+  border-bottom: 1px solid $white;
+}
+.orderBtn {
+  padding: 5px 50px;
+  border: 0;
+  background-color: $black;
+  border: 1px solid $purple;
+  color: $white;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+.orderBtn:hover {
+  background-color: $purple;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.thankYou {
+  text-align: center;
+  margin-top: 10px;
+}
+.thankYouLink {
+  color: $purple;
+}

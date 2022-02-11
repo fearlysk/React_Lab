@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import routes from "../../constants/routes";
 import styles from "./Header.module.scss";
@@ -9,10 +9,12 @@ import Modal from "../UI/Modals/Modal";
 import SignIn from "../UI/Modals/ModalContent/SignIn";
 import SignUp from "../UI/Modals/ModalContent/SignUp";
 import { selectUser, logout } from "../../redux/userSlice";
+import { selectCartCounter } from "../../redux/cartSlice";
 import IUserData from "@/interfaces/IUserData";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
 
@@ -23,6 +25,7 @@ function Header() {
   const [RegModalOpen, setRegModalOpen] = useState(false);
 
   const user: IUserData | null = useAppSelector(selectUser);
+  const cartCounter: number = useAppSelector(selectCartCounter);
 
   const dispatch = useAppDispatch();
 
@@ -42,7 +45,7 @@ function Header() {
   };
   const logOut = () => {
     dispatch(logout());
-    window.location.replace("/");
+    navigate("/");
   };
 
   return (
@@ -117,9 +120,9 @@ function Header() {
             </NavLink>
 
             <div className={styles.navItem}>
-              <button type="button" className={styles.navItemBtn}>
-                Cart: 0
-              </button>
+              <NavLink to={`${routes.CART}`} className={styles.navItemBtn}>
+                Cart: {cartCounter}
+              </NavLink>
             </div>
 
             <div className={styles.navItem}>

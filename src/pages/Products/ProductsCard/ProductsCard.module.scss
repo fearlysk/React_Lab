@@ -2,7 +2,7 @@
 @import "../../../styles/parts/mixins";
 
 .wrapper {
-  @include flex-display-row;
+  flex-direction: row;
   flex-wrap: wrap;
   margin: 25px 25px;
   z-index: 2;
@@ -25,8 +25,8 @@
   border-radius: 4px;
 }
 .productPlatforms {
-  @include flex-display-row;
   @include flex-center;
+  flex-direction: row;
 }
 .productPlatformsItem {
   border: 1px solid $purple;
@@ -83,4 +83,7 @@
 .cartBtn {
   padding: 5px 15px;
   margin-top: 10px;
+}
+.cartBtn:hover {
+  cursor: pointer;
 }
