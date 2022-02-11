@@ -5,15 +5,15 @@
   @include flex-center;
 }
 .cart {
-  @include flex-display-column;
   @include flex-center;
-  margin: 5px auto;
+  flex-direction: column;
+  margin: 0 auto 5px;
   text-align: center;
   width: 60%;
 }
 .cartItem {
-  @include flex-display-row;
   @include flex-between;
+  flex-direction: row;
   align-items: center;
   text-align: left;
   width: 100%;

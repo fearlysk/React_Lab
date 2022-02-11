@@ -15,12 +15,8 @@ export const cartSlice = createSlice({
     totalPrice: (state) => {
       const cartState = state;
       const cart = cartState.cartData;
-      cartState.totalPrice = 0;
 
-      cart.map((item) => {
-        cartState.totalPrice += item.price * item.quantity;
-        return cartState.totalPrice;
-      });
+      cartState.totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
     },
     addToCart: (state, action: PayloadAction<IProduct | never>) => {
       const cartState = state;
@@ -39,16 +35,13 @@ export const cartSlice = createSlice({
       const cartState = state;
       const cart = cartState.cartData;
 
-      const temp = cart.some((i) => i.id === action.payload.id);
-      if (temp) {
-        const itemIndex = cart.findIndex((el) => el.id === action.payload.id);
-        if (cart[itemIndex].quantity) {
-          cart[itemIndex].quantity -= 1;
-          cartState.cartCounter -= 1;
-        }
-        if (!cart[itemIndex].quantity) {
-          cart.splice(itemIndex, 1);
-        }
+      const itemIndex = cart.findIndex((el) => el.id === action.payload.id);
+      if (cart[itemIndex].quantity) {
+        cart[itemIndex].quantity -= 1;
+        cartState.cartCounter -= 1;
+      }
+      if (!cart[itemIndex].quantity) {
+        cart.splice(itemIndex, 1);
       }
     },
     clearCartData: (state) => {
@@ -61,7 +54,7 @@ export const cartSlice = createSlice({
 });
 
 export const { totalPrice, addToCart, removeFromCart, clearCartData } = cartSlice.actions;
-export const selectCart = (state: RootState) => state.storeData.persistedCartReducer.cartData;
-export const selectCartCounter = (state: RootState) => state.storeData.persistedCartReducer.cartCounter;
-export const selectTotalPrice = (state: RootState) => state.storeData.persistedCartReducer.totalPrice;
+export const selectCart = (state: RootState) => state.storeData.cart.cartData;
+export const selectCartCounter = (state: RootState) => state.storeData.cart.cartCounter;
+export const selectTotalPrice = (state: RootState) => state.storeData.cart.totalPrice;
 export default cartSlice.reducer;

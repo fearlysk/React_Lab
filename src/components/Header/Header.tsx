@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLocation, NavLink } from "react-router-dom";
+import { useLocation, NavLink, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import routes from "../../constants/routes";
 import styles from "./Header.module.scss";
@@ -14,6 +14,7 @@ import IUserData from "@/interfaces/IUserData";
 
 function Header() {
   const location = useLocation();
+  const navigate = useNavigate();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
 
@@ -44,8 +45,7 @@ function Header() {
   };
   const logOut = () => {
     dispatch(logout());
-    window.location.replace("/products"); // to make logout on homepage
-    window.location.replace("/");
+    navigate("/");
   };
 
   return (
@@ -120,10 +120,8 @@ function Header() {
             </NavLink>
 
             <div className={styles.navItem}>
-              <NavLink to={`${routes.CART}`}>
-                <button type="button" className={styles.navItemBtn}>
-                  Cart: {cartCounter}
-                </button>
+              <NavLink to={`${routes.CART}`} className={styles.navItemBtn}>
+                Cart: {cartCounter}
               </NavLink>
             </div>
 

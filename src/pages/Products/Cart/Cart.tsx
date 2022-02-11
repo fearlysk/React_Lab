@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loader from "../../../components/UI/Loader/Loader";
 import { useAppSelector, useAppDispatch } from "../../../redux/hooks";
 import {
@@ -13,6 +14,8 @@ import styles from "./Cart.module.scss";
 import IProduct from "@/interfaces/IProduct";
 
 function Cart() {
+  const navigate = useNavigate();
+
   const cart: IProduct[] | null = useAppSelector(selectCart);
   const total: number = useAppSelector(selectTotalPrice);
   const dispatch = useAppDispatch();
@@ -25,13 +28,16 @@ function Cart() {
 
   const setLoading = () => {
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 300);
+  };
+  const clearLoading = () => {
+    setIsLoading(false);
   };
 
   const thankYou = () => {
     setLoading();
     dispatch(clearCartData());
-    window.location.replace("/thanks");
+    navigate("/thanks");
+    clearLoading();
   };
 
   return (

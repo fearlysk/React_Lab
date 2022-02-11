@@ -10,12 +10,12 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, userReducer);
-const persistedCartReducer = persistReducer(persistConfig, cartReducer);
+const user = persistReducer(persistConfig, userReducer);
+const cart = persistReducer(persistConfig, cartReducer);
 
 const storeData = combineReducers({
-  persistedReducer,
-  persistedCartReducer,
+  user,
+  cart,
 });
 
 export const store = configureStore({

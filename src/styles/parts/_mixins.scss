@@ -18,11 +18,3 @@
   display: flex;
   justify-content: space-between;
 }
-@mixin flex-display-column {
-  display: flex;
-  flex-direction: column;
-}
-@mixin flex-display-row {
-  display: flex;
-  flex-direction: row;
-}
