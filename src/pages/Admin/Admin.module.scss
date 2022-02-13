@@ -1,0 +1,60 @@
+@import "../../styles/parts/colors";
+@import "../../styles/parts/mixins";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: 10px auto;
+  border: 1px solid $purple;
+  border-radius: 10px;
+  background-color: $translucentdarkgray;
+}
+.hidden {
+  display: none;
+}
+.headline {
+  margin: 10px auto;
+  padding: 0 0 10px 0;
+  border-bottom: 1px solid $white;
+  max-width: 75%;
+}
+.pageHeadline {
+  text-align: center;
+}
+.searchForm {
+  @include flex-evenly;
+  width: 80%;
+  color: $white;
+  margin: 20px auto;
+  padding-right: 10px;
+}
+.productsWrapper {
+  max-width: 80%;
+  margin: 0 auto;
+  border: 1px solid $white;
+  border-radius: 10px;
+}
+.searchInput {
+  border-radius: 3px;
+  padding: 10px 0 10px 10px;
+  width: 80%;
+  margin-left: 20px;
+  background-color: $translucent;
+  color: $white;
+  border: 1px solid $purple;
+  border-radius: 3px;
+}
+.createCardBtn {
+  background-color: $purple;
+  padding: 10px 15px;
+  color: $white;
+  border: 0;
+  border-radius: 10px;
+}
+.productsList {
+  @include flex-center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 0 0 25px 0;
+}

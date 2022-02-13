@@ -119,6 +119,12 @@ function Header() {
               {user.firstName}
             </NavLink>
 
+            {user.role === "admin" ? (
+              <NavLink to={`${routes.ADMIN}`} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+                Admin
+              </NavLink>
+            ) : null}
+
             <div className={styles.navItem}>
               <NavLink to={`${routes.CART}`} className={styles.navItemBtn}>
                 Cart: {cartCounter}

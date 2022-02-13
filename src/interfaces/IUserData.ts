@@ -4,6 +4,7 @@ export default interface IUserData {
   lastName?: string;
   email?: string;
   password?: string;
+  role?: string;
   confirmPassword?: string;
   avatar?: string;
 }

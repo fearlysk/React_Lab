@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from "../../../../../redux/hooks";
 import Input from "../../../Input/Input";
 import Modal from "../../Modal";
 import { selectUser, updateUserData } from "../../../../../redux/userSlice";
-import styles from "../UserAuth.module.scss";
+import styles from "../ModalContent.module.scss";
 import IUserData from "../../../../../interfaces/IUserData";
 import { ChangeUserInfoValidationSchema } from "../../../../../utils/schemas";
 import { changeUserData } from "../../../../../api/user/user";
@@ -41,6 +41,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
     lastName: user?.lastName,
     email: user?.email,
     password: user?.password,
+    role: user?.role,
   });
 
   const dispatch = useAppDispatch();
@@ -70,7 +71,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
   if (!userInfoModalOpen) return null;
 
   return (
-    <div className={styles.userAuthFormWrapper}>
+    <div className={styles.modalContentFormWrapper}>
       <Modal modalOpen={modalOpen}>
         <div className={styles.errorModal}>
           <h3>Invalid data! Try again!</h3>
@@ -89,7 +90,7 @@ function ChangeUserInfo({ userInfoModalOpen, setUserInfoModalOpen }: Props) {
           </button>
         </div>
       </div>
-      <form className={styles.userAuthForm} onSubmit={handleSubmit(formSubmitHandler)}>
+      <form className={styles.modalContentForm} onSubmit={handleSubmit(formSubmitHandler)}>
         <Input
           id="firstName"
           name="firstName"

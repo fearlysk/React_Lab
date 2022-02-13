@@ -1,10 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useAppDispatch } from "../../../../redux/hooks";
 import { login } from "../../../../redux/userSlice";
 import IUserData from "../../../../interfaces/IUserData";
 import Input from "../../Input/Input";
-import styles from "./UserAuth.module.scss";
+import styles from "./ModalContent.module.scss";
 import signUp from "../../../../api/auth/signUp";
 import { SignUpValidationSchema } from "../../../../utils/schemas";
 
@@ -14,6 +15,8 @@ type Props = {
 };
 
 function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -32,12 +35,13 @@ function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
       lastName: uData.lastName,
       email: uData.email,
       password: uData.password,
+      role: "user",
     };
 
     signUp(userData).then((data) => {
       if (data !== undefined) {
         dispatch(login(data));
-        window.location.reload();
+        navigate(0);
       }
     });
     reset();
@@ -46,7 +50,7 @@ function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
   if (!RegModalOpen) return null;
 
   return (
-    <div className={styles.userAuthFormWrapper}>
+    <div className={styles.modalContentFormWrapper}>
       <div className={styles.modalHeader}>
         <div>
           <h1 className={styles.headline}>Sign Up</h1>
@@ -57,7 +61,7 @@ function SignUp({ RegModalOpen, setRegModalOpen }: Props) {
           </button>
         </div>
       </div>
-      <form className={styles.userAuthForm} onSubmit={handleSubmit(formSubmitHandler)}>
+      <form className={styles.modalContentForm} onSubmit={handleSubmit(formSubmitHandler)}>
         <Input
           id="firstName"
           name="firstName"
