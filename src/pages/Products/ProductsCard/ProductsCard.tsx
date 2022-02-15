@@ -1,11 +1,36 @@
+import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
-import { useAppDispatch } from "../../../redux/hooks";
+import Modal from "../../../components/UI/Modals/Modal";
+import EditProduct from "../../../components/UI/Modals/ModalContent/Admin/EditProduct";
+import RemoveProduct from "../../../components/UI/Modals/ModalContent/Admin/RemoveProduct";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { selectUser } from "../../../redux/userSlice";
 import IProduct from "@/interfaces/IProduct";
+import IUserData from "@/interfaces/IUserData";
 import styles from "./ProductsCard.module.scss";
 import { addToCart } from "../../../redux/cartSlice";
 
 function ProductsCard(product: IProduct) {
+  const location = useLocation();
+
+  const user: IUserData | null = useAppSelector(selectUser);
+
   const dispatch = useAppDispatch();
+
+  const isEditable = user?.role === "admin" && location.pathname === "/admin";
+
+  const [EditProductModalOpen, setEditProductModalOpen] = useState(false);
+  const [RemoveProductModalOpen, setRemoveProductModalOpen] = useState(false);
+
+  const openEditProductModal = () => {
+    setEditProductModalOpen(true);
+    setRemoveProductModalOpen(false);
+  };
+  const openRemoveProductModal = () => {
+    setRemoveProductModalOpen(true);
+    setEditProductModalOpen(false);
+  };
 
   const addToCartHandler = () => {
     dispatch(addToCart(product));
@@ -13,6 +38,21 @@ function ProductsCard(product: IProduct) {
 
   return (
     <div className={styles.wrapper}>
+      <Modal modalOpen={EditProductModalOpen}>
+        <EditProduct
+          EditProductModalOpen={EditProductModalOpen}
+          setEditProductModalOpen={setEditProductModalOpen}
+          id={product.id}
+        />
+      </Modal>
+      <Modal modalOpen={RemoveProductModalOpen}>
+        <RemoveProduct
+          RemoveProductModalOpen={RemoveProductModalOpen}
+          setRemoveProductModalOpen={setRemoveProductModalOpen}
+          id={product.id}
+          title={product.title}
+        />
+      </Modal>
       <div className={styles.productCard}>
         <div className={styles.front}>
           <img className={styles.productCardImg} src={product.image} alt="Not Found" />
@@ -30,6 +70,16 @@ function ProductsCard(product: IProduct) {
           <button type="button" onClick={addToCartHandler} className={styles.cartBtn}>
             Add to cart
           </button>
+          {isEditable ? (
+            <div>
+              <button type="button" onClick={openEditProductModal} className={styles.cartBtn}>
+                Edit
+              </button>
+              <button type="button" onClick={openRemoveProductModal} className={styles.cartBtn}>
+                Remove
+              </button>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

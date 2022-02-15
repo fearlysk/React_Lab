@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -5,7 +6,7 @@ import { useAppDispatch } from "../../../../redux/hooks";
 import { login } from "../../../../redux/userSlice";
 import IUserData from "../../../../interfaces/IUserData";
 import Input from "../../Input/Input";
-import styles from "./UserAuth.module.scss";
+import styles from "./ModalContent.module.scss";
 import signIn from "../../../../api/auth/signIn";
 import Modal from "../Modal";
 import { SignInValidationSchema } from "../../../../utils/schemas";
@@ -16,6 +17,8 @@ type Props = {
 };
 
 function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
@@ -40,12 +43,13 @@ function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
     const userData = {
       email: uData.email,
       password: uData.password,
+      role: uData.role,
     };
 
     signIn(userData).then((data) => {
       if (data[0] !== undefined) {
         dispatch(login(data[0]));
-        window.location.reload();
+        navigate(0);
       } else if (userData !== data[0]) {
         openModal();
       }
@@ -56,7 +60,7 @@ function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
   if (!LoginModalOpen) return null;
 
   return (
-    <div className={styles.userAuthFormWrapper}>
+    <div className={styles.modalContentFormWrapper}>
       <Modal modalOpen={modalOpen}>
         <div className={styles.errorModal}>
           <h3>Invalid data! Try again!</h3>
@@ -75,7 +79,7 @@ function SignIn({ LoginModalOpen, setLoginModalOpen }: Props) {
           </button>
         </div>
       </div>
-      <form className={styles.userAuthForm} onSubmit={handleSubmit(formSubmitHandler)}>
+      <form className={styles.modalContentForm} onSubmit={handleSubmit(formSubmitHandler)}>
         <Input
           id="email"
           name="email"

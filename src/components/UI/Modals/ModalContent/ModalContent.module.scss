@@ -1,7 +1,7 @@
 @import "../../../../styles/parts/colors";
 @import "../../../../styles/parts/mixins";
 
-.userAuthFormWrapper {
+.modalContentFormWrapper {
   border: 1px solid $white;
   padding: 10px 15px;
   background-color: $black;
@@ -24,9 +24,16 @@
   font-size: 1.5em;
   border-radius: 10px;
 }
-.userAuthForm {
+.modalContentForm {
   margin: 20px auto;
   width: 60%;
+}
+.modalContentFormSection {
+  display: flex;
+  flex-direction: row;
+}
+.modalContentFormSectionItem {
+  margin-right: 25px;
 }
 .submitBtn {
   margin: 10px;
@@ -45,4 +52,29 @@
   padding: 5px;
   border: 1px solid $white;
   border-radius: 10px;
+}
+.productTitle {
+  color: $purple;
+  border-bottom: 1px solid $white;
+  padding-bottom: 5px;
+}
+.confirmOptions {
+  @include flex-center;
+}
+.confirmOptionsItem {
+  margin: 20px;
+}
+.confirmOptionsItemBtn {
+  background-color: $purple;
+  color: $white;
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 30px;
+  transition: 0.3s;
+}
+.confirmOptionsItemBtn:hover {
+  background-color: $white;
+  color: $black;
+  cursor: pointer;
+  transition: 0.3s;
 }

@@ -61,6 +61,7 @@ function Home() {
           {filteredProducts.map((product: IProduct) => (
             <ProductsCard key={product.id} {...product} />
           ))}
+          {!filteredProducts.length ? <h2 className={styles.headline}>Product not found</h2> : null}
         </div>
       </div>
       <div className={styles.categoriesWrapper}>

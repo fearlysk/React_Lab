@@ -7,6 +7,7 @@ import Cart from "./pages/Products/Cart/Cart";
 import ThankYou from "./pages/Products/Cart/ThankYou";
 import About from "./pages/About/About";
 import Profile from "./pages/Profile/Profile";
+import Admin from "./pages/Admin/Admin";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
@@ -27,6 +28,7 @@ function App() {
               <Route path="/thanks" element={<ThankYou />} />
               <Route path="/about" element={<About />} />
               <Route path="/profile/:id" element={<Profile />} />
+              <Route path="/admin" element={<Admin />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>

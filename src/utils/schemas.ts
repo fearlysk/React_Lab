@@ -29,3 +29,14 @@ export const passwordConfirmValidationSchema = yup.object().shape({
     .required()
     .oneOf([yup.ref("password")]),
 });
+
+export const productFieldsValidationSchema = yup.object().shape({
+  image: yup.string().url().required(),
+  title: yup.string().required(),
+  age: yup.number().min(12).max(18).required(),
+  rating: yup.number().min(1).max(5).required(),
+  category: yup.string().required(),
+  genre: yup.string().required(),
+  price: yup.number().required(),
+  description: yup.string().required(),
+});

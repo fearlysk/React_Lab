@@ -10,6 +10,15 @@ export type InputData = {
   name: string;
   avatar?: string;
   value?: string;
+  image?: string;
+  title?: string;
+  price?: number;
+  genre?: string;
+  age?: number;
+  rating?: number;
+  category?: string;
+  description?: string;
+  quantity?: number;
   onChange?: ChangeHandler;
 };
 
