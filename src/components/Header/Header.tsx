@@ -11,6 +11,7 @@ import SignUp from "../UI/Modals/ModalContent/SignUp";
 import { selectUser, logout } from "../../redux/userSlice";
 import { selectCartCounter } from "../../redux/cartSlice";
 import IUserData from "@/interfaces/IUserData";
+import Roles from "../../enums/roles";
 
 function Header() {
   const location = useLocation();
@@ -64,13 +65,13 @@ function Header() {
             </NavLink>
           </h1>
           <div className={styles.nav}>
-            <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+            <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.navItemActive : styles.navItem)}>
               Home
             </NavLink>
             <div
               className={
                 splitLocation[1] === "products"
-                  ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
+                  ? `${styles.navItemActive} ,  ${styles.products} ,  ${styles.navItem}`
                   : `${styles.navItem} ,  ${styles.products}`
               }
             >
@@ -99,13 +100,13 @@ function Header() {
               </div>
             </div>
 
-            <NavLink to={routes.ABOUT} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+            <NavLink to={routes.ABOUT} className={({ isActive }) => (isActive ? styles.navItemActive : styles.navItem)}>
               About
             </NavLink>
 
             <NavLink
               to={`${routes.PROFILE}/${user.id}`}
-              className={({ isActive }) => (isActive ? styles.active : styles.navItem)}
+              className={({ isActive }) => (isActive ? styles.navItemActive : styles.navItem)}
             >
               {user.avatar ? (
                 <div className={styles.avatarImageWrapper}>
@@ -119,8 +120,11 @@ function Header() {
               {user.firstName}
             </NavLink>
 
-            {user.role === "admin" ? (
-              <NavLink to={`${routes.ADMIN}`} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+            {user.role === Roles.ADMIN ? (
+              <NavLink
+                to={`${routes.ADMIN}`}
+                className={({ isActive }) => (isActive ? styles.navItemActive : styles.navItem)}
+              >
                 Admin
               </NavLink>
             ) : null}
@@ -152,13 +156,13 @@ function Header() {
             </NavLink>
           </h1>
           <div className={styles.nav}>
-            <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.active : styles.navItem)}>
+            <NavLink to={routes.HOME} className={({ isActive }) => (isActive ? styles.navItemActive : styles.navItem)}>
               Home
             </NavLink>
             <div
               className={
                 splitLocation[1] === "products"
-                  ? `${styles.active} ,  ${styles.products} ,  ${styles.navItem}`
+                  ? `${styles.navItemActive} ,  ${styles.products} ,  ${styles.navItem}`
                   : `${styles.navItem} ,  ${styles.products}`
               }
             >
