@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import classNames from "classnames";
-import ProductsCard from "./ProductsCard/ProductsCard";
 import Loader from "../../components/UI/Loader/Loader";
+import LazyProductCardLoading from "../../components/UI/Loader/LazyProductCardLoading";
 import styles from "./Products.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import { getProducts } from "../../api/products";
@@ -11,6 +11,8 @@ import objectToGetParams from "../../utils/urls";
 import sortingOrders from "../../enums/sorting";
 
 function Products() {
+  const ProductsCard = lazy(() => import("./ProductsCard/ProductsCard"));
+
   const { category } = useParams();
   const [value, setValue] = useState("");
   const [products, setProducts] = useState([]);
@@ -22,8 +24,9 @@ function Products() {
   const query = objectToGetParams({ category });
   const promises = [getProducts(), getProducts(query)];
 
-  const filteredProducts = products.filter((product: IProduct) =>
-    product.title.toLowerCase().includes(value.toLowerCase())
+  const filteredProducts = useMemo(
+    () => products.filter((product: IProduct) => product.title.toLowerCase().includes(value.toLowerCase())),
+    [value, products]
   );
 
   const setLoading = () => {
@@ -182,7 +185,9 @@ function Products() {
             <h2 className={styles.headline}>Search: </h2>
             <div className={styles.productsList}>
               {filteredProducts.map((product: IProduct) => (
-                <ProductsCard key={product.id} {...product} />
+                <Suspense fallback={<LazyProductCardLoading />}>
+                  <ProductsCard key={product.id} {...product} />
+                </Suspense>
               ))}
               {!filteredProducts.length ? <h2 className={styles.headline}>Product not found</h2> : null}
             </div>
@@ -192,7 +197,9 @@ function Products() {
               <h2 className={styles.headline}>Products for: {category?.toUpperCase()}</h2>
               <div className={styles.productsList}>
                 {categoryProducts.map((sortedProduct: IProduct) => (
-                  <ProductsCard key={sortedProduct.id} {...sortedProduct} />
+                  <Suspense fallback={<LazyProductCardLoading />}>
+                    <ProductsCard key={sortedProduct.id} {...sortedProduct} />
+                  </Suspense>
                 ))}
                 {categoryProducts.length === 0 && <h2 className={styles.headline}>No results found</h2>}
               </div>
@@ -202,7 +209,9 @@ function Products() {
               <h2 className={styles.headline}>All Products</h2>
               <div className={styles.productsList}>
                 {products.map((product: IProduct) => (
-                  <ProductsCard key={product.id} {...product} />
+                  <Suspense fallback={<LazyProductCardLoading />}>
+                    <ProductsCard key={product.id} {...product} />
+                  </Suspense>
                 ))}
               </div>
             </>

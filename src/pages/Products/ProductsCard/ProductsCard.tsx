@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useLocation } from "react-router-dom";
 import { Rating } from "react-simple-star-rating";
 import Modal from "../../../components/UI/Modals/Modal";
@@ -10,6 +10,7 @@ import IProduct from "@/interfaces/IProduct";
 import IUserData from "@/interfaces/IUserData";
 import styles from "./ProductsCard.module.scss";
 import { addToCart } from "../../../redux/cartSlice";
+import Roles from "../../../enums/roles";
 
 function ProductsCard(product: IProduct) {
   const location = useLocation();
@@ -18,7 +19,7 @@ function ProductsCard(product: IProduct) {
 
   const dispatch = useAppDispatch();
 
-  const isEditable = user?.role === "admin" && location.pathname === "/admin";
+  const isEditable = user?.role === Roles.ADMIN && location.pathname === "/admin";
 
   const [EditProductModalOpen, setEditProductModalOpen] = useState(false);
   const [RemoveProductModalOpen, setRemoveProductModalOpen] = useState(false);
@@ -86,4 +87,4 @@ function ProductsCard(product: IProduct) {
   );
 }
 
-export default ProductsCard;
+export default memo(ProductsCard);

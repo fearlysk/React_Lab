@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense, lazy, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import { useAppSelector } from "../../redux/hooks";
 import { selectUser } from "../../redux/userSlice";
-import ProductsCard from "../Products/ProductsCard/ProductsCard";
 import settlePromises from "../../utils/settlePromises";
 import { getProducts } from "../../api/products";
 import IUserData from "@/interfaces/IUserData";
@@ -11,8 +10,12 @@ import IProduct from "@/interfaces/IProduct";
 import styles from "./Admin.module.scss";
 import Modal from "../../components/UI/Modals/Modal";
 import CreateProduct from "../../components/UI/Modals/ModalContent/Admin/CreateProduct";
+import LazyProductCardLoading from "../../components/UI/Loader/LazyProductCardLoading";
+import Roles from "../../enums/roles";
 
 function Admin() {
+  const ProductsCard = lazy(() => import("../Products/ProductsCard/ProductsCard"));
+
   const user: IUserData | null = useAppSelector(selectUser);
 
   const navigate = useNavigate();
@@ -25,11 +28,12 @@ function Admin() {
     setCreateProductModalOpen(true);
   };
 
-  const filteredProducts = products.filter((product: IProduct) =>
-    product.title.toLowerCase().includes(value.toLowerCase())
+  const filteredProducts = useMemo(
+    () => products.filter((product: IProduct) => product.title.toLowerCase().includes(value.toLowerCase())),
+    [value, products]
   );
 
-  const isAdmin = () => (user?.role !== "admin" ? navigate("/") : null);
+  const isAdmin = () => (user?.role !== Roles.ADMIN ? navigate("/") : null);
 
   const promises = [getProducts()];
 
@@ -64,17 +68,20 @@ function Admin() {
         <h2 className={styles.headline}>Search:</h2>
         <div className={styles.productsList}>
           {filteredProducts.map((product: IProduct) => (
-            <ProductsCard key={product.id} {...product} />
+            <Suspense fallback={<LazyProductCardLoading />}>
+              <ProductsCard key={product.id} {...product} />
+            </Suspense>
           ))}
           {!filteredProducts.length ? <h2 className={styles.headline}>Product not found</h2> : null}
         </div>
       </div>
-
       <div>
         <h2 className={styles.headline}>Products</h2>
         <div className={styles.productsList}>
           {products.map((product: IProduct) => (
-            <ProductsCard key={product.id} {...product} />
+            <Suspense fallback={<LazyProductCardLoading />}>
+              <ProductsCard key={product.id} {...product} />
+            </Suspense>
           ))}
         </div>
       </div>

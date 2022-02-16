@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy, useMemo } from "react";
 import { Link } from "react-router-dom";
 import classNames from "classnames";
 import { useAppSelector } from "../../redux/hooks";
-import ProductsCard from "../Products/ProductsCard/ProductsCard";
 import styles from "./Home.module.scss";
 import IProduct from "@/interfaces/IProduct";
 import ICategory from "@/interfaces/ICategory";
@@ -11,9 +10,12 @@ import { getCategories } from "../../api/categories";
 import settlePromises from "../../utils/settlePromises";
 import Modal from "../../components/UI/Modals/Modal";
 import SignIn from "../../components/UI/Modals/ModalContent/SignIn";
+import LazyProductCardLoading from "../../components/UI/Loader/LazyProductCardLoading";
 import { selectUser } from "../../redux/userSlice";
 
 function Home() {
+  const ProductsCard = lazy(() => import("../Products/ProductsCard/ProductsCard"));
+
   const [value, setValue] = useState("");
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -37,8 +39,9 @@ function Home() {
     setLoginModalOpen(true);
   };
 
-  const filteredProducts = products.filter((product: IProduct) =>
-    product.title.toLowerCase().includes(value.toLowerCase())
+  const filteredProducts = useMemo(
+    () => products.filter((product: IProduct) => product.title.toLowerCase().includes(value.toLowerCase())),
+    [value, products]
   );
   const newProducts = products.slice(-3);
 
@@ -59,7 +62,9 @@ function Home() {
         <h2 className={styles.headline}>Products</h2>
         <div className={styles.productsList}>
           {filteredProducts.map((product: IProduct) => (
-            <ProductsCard key={product.id} {...product} />
+            <Suspense fallback={<LazyProductCardLoading />}>
+              <ProductsCard key={product.id} {...product} />
+            </Suspense>
           ))}
           {!filteredProducts.length ? <h2 className={styles.headline}>Product not found</h2> : null}
         </div>
@@ -94,7 +99,9 @@ function Home() {
           <div className={styles.wrapper}>
             <div className={styles.productsList}>
               {newProducts.map((product: IProduct) => (
-                <ProductsCard key={product.id} {...product} />
+                <Suspense fallback={<LazyProductCardLoading />}>
+                  <ProductsCard key={product.id} {...product} />
+                </Suspense>
               ))}
             </div>
           </div>
