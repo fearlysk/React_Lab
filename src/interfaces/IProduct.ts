@@ -8,5 +8,6 @@ export default interface IProduct {
   rating: number;
   category: string;
   description: string;
+  createdAt: string;
   quantity: number;
 }

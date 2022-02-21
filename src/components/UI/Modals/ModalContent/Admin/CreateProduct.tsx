@@ -35,6 +35,7 @@ function CreateProduct({ CreateProductModalOpen, setCreateProductModalOpen }: Pr
       genre: pData.genre,
       price: pData.price,
       description: pData.description,
+      createdAt: new Date().getTime().toString(),
       quantity: 1,
     };
 
